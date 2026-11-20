@@ -1,0 +1,9 @@
+name: CI registration probe
+'on': [push, pull_request]
+permissions: {}
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - run: echo CI registration probe
