@@ -1,0 +1,12 @@
+{
+  "R03": {"grounded": true, "complete": true, "refusal": true, "citations": true, "note": "Вводное бесплатное и длится 30 минут. Оба факта в intro-enrollment."},
+  "R04": {"grounded": true, "complete": false, "refusal": true, "citations": true, "note": "Срок и форма подтверждены, но для перехода требуется свободное место по group-transfer."},
+  "R10": {"grounded": true, "complete": true, "refusal": true, "citations": true, "note": "Сертификат требует минимум 80% и принятой итоговой работы. Эфиры можно заменить записями."},
+  "R16": {"grounded": null, "complete": true, "refusal": true, "citations": true, "note": "В payment-terms перечислены четыре цены, цена курса по ML отсутствует. Корректный отказ без цитат."},
+  "B01": {"grounded": true, "complete": true, "refusal": true, "citations": true, "note": "В group-enrollment есть курс, поток, заявка и ожидание места. Два дня относятся к ответу администратора. При чтении как гарантии места этой фразе нужна правка."},
+  "B05": {"grounded": true, "complete": true, "refusal": true, "citations": true, "note": "consult-course-choice прямо допускает общий вопрос без встречи."},
+  "B17": {"grounded": null, "complete": false, "refusal": false, "citations": true, "note": "В переданных python-start и web-development описаны консольный каталог расходов и веб-каталог материалов. Отказ ошибочен, выдуманных ID нет."},
+  "B18": {"grounded": false, "complete": false, "refusal": true, "citations": true, "note": "React и серверные фреймворки относятся к следующим ступеням. Это не запрет изучать их сейчас. Опыт с сервером действительно не требуется."},
+  "B24": {"grounded": null, "complete": true, "refusal": true, "citations": true, "note": "В web-development нет аккредитации или выдающей организации. Корректный отказ без цитат."},
+  "B27": {"grounded": false, "complete": false, "refusal": false, "citations": true, "note": "Расписание подтверждено, но запрет пересылать пароль в поддержку не означает вход без пароля. Требуется отказ на составной вопрос."}
+}
