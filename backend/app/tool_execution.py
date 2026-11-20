@@ -31,6 +31,7 @@ class SearchArguments(StrictModel):
 
 
 class RequestDraft(StrictModel):
+    model_config = {"strict": True, "extra": "ignore"}
     name: Name
     question: Question
 
