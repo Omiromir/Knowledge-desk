@@ -10,7 +10,7 @@
 |---|---|---|
 | Домен | `backend/app/domain.py` | Неизменяемые Document и RequestRecord, ошибка отсутствующей записи. Без FastAPI, Pydantic и SQLite |
 | Прикладные операции | `backend/app/services.py` | Создание UUID, начальное состояние заявки, операции чтения/изменения/удаления, NotFoundError. Зависит от протоколов хранилища |
-| SQLite | `backend/app/database.py` | Реализация протоколов: SQL с параметрами, транзакции, закрытие соединений, инициализация таблиц |
+| Хранилище | `backend/app/database.py`, `backend/app/storage/` | Подключение и транзакции отдельно от схемы SQLite и параметризованных запросов к документам, аккаунтам и заявкам |
 | HTTP | `backend/app/api/`, `models.py` | Маршруты, проверка входных данных, JSON-ответы и перевод ошибок в HTTP |
 | Сборка приложения | `backend/app/main.py`, `config.py` | Lifespan, CORS, обработчики ошибок, подключение маршрутов и зависимостей |
 | Клиент API | `frontend/src/api/`, `config.ts` | Адрес API, fetch, response.ok, JSON-ошибки, проверка структуры успешного ответа |

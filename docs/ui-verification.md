@@ -51,6 +51,8 @@ npx --yes --package @playwright/cli playwright-cli -s=knowledge-desk run-code --
 
 Скрипты содержат assert-проверки и возвращают passed/результаты. Снимки сохраняются в output/playwright и исключены из Git. Запускайте команды последовательно, дожидаясь завершения каждой, поскольку они управляют одной вкладкой.
 
+`frontend/scripts/verify-profile-thread.js` проверяет production-сборку на том же origin с подменой API. Запустите скрипт из корня проекта на открытой сборке без `VITE_API_BASE_URL`. Он проверяет обновление имени и фото, получение счётчика по SSE и возврат в уже загруженную переписку.
+
 ## Дизайн и интерфейс
 
 Референс и токены: [DESIGN.md](../DESIGN.md). Применены frontend-skill, UI Designer, React Best Practices и Web Interface Guidelines. После редизайна проверены native controls, короткие доступные имена, связи ошибок с полями, skip-link, live-результат, длинные строки, перенос id, focus-visible и reduced motion. Это практическая проверка интерфейса; независимого полного WCAG-аудита и нагрузочного тестирования не проводилось.

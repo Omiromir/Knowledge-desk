@@ -24,14 +24,16 @@ $env:VITE_API_BASE_URL = '/'
 npm --prefix frontend ci
 npm --prefix frontend run build
 npm --prefix frontend run lint
-.\.venv\Scripts\python.exe -X utf8 -m pytest -q backend/tests
+.\.venv\Scripts\python.exe -X utf8 -m pytest -q backend/tests tests/security
 ```
 
 Lock-файл сохраняет CPU-сборку PyTorch. Если её загрузка обрывается, скачайте wheel для `cp312-win_amd64` из официального индекса и сверьте SHA-256 по ссылке индекса. Установите wheel в новую среду командой `python -m pip install --no-deps путь-к-wheel`, затем повторите `python -m pip install -r requirements.txt` и `python -m pip check`. В проверке этот способ использовал уже скачанный дистрибутив. [Индекс CPU-сборок PyTorch](https://download.pytorch.org/whl/cpu/torch/)
 
-Для развёртывания скопируйте [.env.example](../.env.example) в серверный `backend/.env`, укажите точный **HTTPS** origin без завершающего слэша и `KNOWLEDGE_DESK_REQUIRE_AUTH=1`. Задайте `KNOWLEDGE_DESK_STATIC_DIR=frontend/dist`, чтобы приложение и API работали с одного origin. Подставьте уже настроенный Supabase из [инструкции](supabase-migration.md). Требуются JWT, выданные Supabase Auth, и роль в `knowledge_desk.members`. Сервис проверяет токен через Supabase, поэтому собственный JWT-секрет приложению не требуется. [Проверка пользователя Supabase](https://supabase.com/docs/reference/javascript/auth-getuser)
+Для развёртывания скопируйте [.env.example](../.env.example) в серверный `backend/.env`, укажите точный **HTTPS** origin без завершающего слэша и `KNOWLEDGE_DESK_REQUIRE_AUTH=1`. Защищённому режиму нужны PostgreSQL DSN и параметры Supabase Auth из [инструкции](supabase-migration.md). Задайте `KNOWLEDGE_DESK_STATIC_DIR=frontend/dist`, чтобы приложение и API работали с одного origin. Требуются JWT, выданные Supabase Auth, и роль в `knowledge_desk.members`. Сервис проверяет токен через Supabase. [Проверка пользователя Supabase](https://supabase.com/docs/reference/javascript/auth-getuser)
 
-Адрес API из `VITE_API_BASE_URL` виден в браузере. Ключ OpenAI, PostgreSQL DSN, пароль Storage и секрет webhook загрузите только в окружение сервера. Для TLS используйте сертификат своего HTTPS-адреса. На стенде применялся временный сертификат для IP 127.0.0.1.
+Production-сборка по умолчанию обращается к тому же origin. Если задать `VITE_API_BASE_URL` явно, его значение видно в браузере. Ключ OpenAI, PostgreSQL DSN, пароль Storage и секрет webhook загрузите только в окружение сервера. Для TLS используйте сертификат своего HTTPS-адреса. На стенде применялся временный сертификат для IP 127.0.0.1.
+
+Для первого закрытого пилота запускайте один процесс API. Лимит запросов к модели хранится в памяти процесса, и при нескольких процессах у каждого будет отдельный счётчик. Метрики, восстановление Supabase и проверка внешних интеграций входят в отдельный этап перед запуском пилота.
 
 ```powershell
 .\.venv\Scripts\python.exe -X utf8 -m uvicorn backend.app.main:app --loop backend.app.postgres:selector_loop --env-file backend/.env --host 127.0.0.1 --port 8443 --ssl-certfile path/to/certificate.pem --ssl-keyfile path/to/private.key --no-access-log
@@ -77,6 +79,17 @@ Lock-файл сохраняет CPU-сборку PyTorch. Если её заг�
 | `GET /requests/{id}`, `GET /requests/{id}/delivery` и `POST /requests/{id}/delivery/retry` от другого пользователя | 404 |
 
 На рабочем стенде `/health` вернул `{"status":"ready","database":"ok","index":"ok"}`. На временном стенде с отсутствующей коллекцией маршрут вернул 503. Проверены атрибуты сессионного cookie, отсутствие значений серверных секретов в исходниках, сборке и журналах стенда и закрытый доступ к `/backend/.env`. [Результаты, trace ID и контрольные суммы проверенной версии](../data/eval/deployment-evidence.json) · [Диагностика](diagnostics.md)
+
+## Проверка на отдельном Supabase
+
+Для проверки используйте локальный проект Supabase CLI с отдельным `project_id` и портами API **55321** и PostgreSQL **55322**. Скопируйте `supabase/migrations/` в его папку `supabase/` и запустите локальный стек. Соберите frontend и выполните из корня Knowledge Desk:
+
+```powershell
+supabase --workdir $smokeProject status --output json |
+    .\.venv\Scripts\python.exe -X utf8 -m scripts.verify_supabase_local
+```
+
+`$smokeProject` указывает на папку проекта проверки. Скрипт создаёт вымышленных пользователей и записи в этой локальной базе. Он проверяет миграции, готовность защищённого приложения, доступ к PDF и pgvector, выдачу справки и повтор доставки. Вектор модели, почта и внешний webhook подменены в процессе проверки.
 
 ## Восстановление
 

@@ -1,6 +1,6 @@
 # Проверки CI и откат
 
-Workflow [Checks](../.github/workflows/checks.yml) запускается на push и pull request. Backend использует Windows и версии из `.python-version` и `requirements.txt`. Frontend использует `.node-version`, `npm ci` и production build. Итоговый check **Ready to merge** успешен только после успешных backend и frontend jobs. XML тестов и JSON mock-eval скачиваются из раздела Artifacts. Платные ключи в workflow не передаются.
+Workflow [Checks](../.github/workflows/checks.yml) запускается на push и pull request. Backend использует Windows и версии из `.python-version` и `requirements.txt`. Frontend использует `.node-version`, `npm ci`, lint и production build. Итоговый check **Ready to merge** успешен только после успешных backend и frontend jobs. XML тестов и JSON mock-eval скачиваются из раздела Artifacts. Платные ключи в workflow не передаются.
 
 Для выпуска выбирайте полный SHA с успешным **Ready to merge**. Если репозиторий использует правила защиты веток, этот check должен быть обязательным для основной ветки. Намеренные ошибки для репетиции размещайте в отдельной ветке, которая не связана с развёртыванием.
 
@@ -12,7 +12,7 @@ Workflow [Checks](../.github/workflows/checks.yml) запускается на p
 | Регрессия `codex/security-ci-rehearsal` | `06ce3b2c599c551b5c846992376676003b53fd55` | Черновик принял лишний `owner_id`. Упали целевой тест и ещё четыре проверки того же контракта. `Ready to merge` вернул код 1 |
 | Revert в тестовой ветке | `1def6c40fb4dfd177f637c17eda426ee225adac2` | Дерево файлов совпало с рабочей версией. Снова прошли 214 тестов, 8 подтестов и пять случаев mock-eval. `Ready to merge` вернул код 0 |
 
-Стадии выполнены локальными командами в отдельном checkout с 143 сверенными версиями Python и новой установкой frontend. Публикацию в публичный GitHub остановила автопроверка. GitHub Actions и правила защиты `main` ещё требуют проверки с разрешённой отправкой. [Рабочий XML](../output/ci/module15-04749246/baseline.xml) · [Красный XML](../output/ci/module15-04749246/regression.xml) · [XML после revert](../output/ci/module15-04749246/restored.xml) · [Проверка manifest](../output/ci/module15-04749246/manifest-rehearsal.json)
+Стадии выполнены локальными командами в отдельном checkout с 143 сверенными версиями Python и новой установкой frontend. Их XML и JSON остались в локальном каталоге `output/ci/module15-04749246/`. Публикацию в публичный GitHub остановила автопроверка. GitHub Actions и правила защиты `main` ещё требуют проверки с разрешённой отправкой.
 
 В проверке manifest изменена одна строка `prompts/rag/actor-v16.txt`. Изменился отпечаток входов, воспроизведение со старым manifest было отклонено. После восстановления исходного файла повтор создал байт-в-байт совпадающий отчёт. Исходный отчёт сохранён.
 
