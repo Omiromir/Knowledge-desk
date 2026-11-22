@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { errorMessage } from '../../api/client'
-import { consultation, consultationHref, type Consultation, type ConsultationInput } from '../../api/consultations'
+import { consultation, type Consultation, type ConsultationInput } from '../../api/consultations'
 import { AsyncState } from '../../components/AsyncState'
 import { DeliveryStatus } from '../../components/DeliveryStatus'
 import { Icon } from '../../components/Icons'
 import { LoadingMark } from '../../components/LoadingMark'
+import { consultationHref } from '../../navigation/routes'
 import { readRequestIds, saveRequestIds } from '../requests/history'
 
 const stopMessages: Record<string, string> = {

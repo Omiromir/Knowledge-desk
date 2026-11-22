@@ -1,36 +1,19 @@
 import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { watchOwnCertificateUpdates, type OwnCertificateUpdate } from './api/certificates'
 import { listDocuments } from './api/documents'
-import { consultationHref } from './api/consultations'
-import { Icon } from './components/Icons'
-import { LoadingMark } from './components/LoadingMark'
 import { AskWorkspace } from './features/ask/AskWorkspace'
 import { ConsultationWorkspace } from './features/ask/ConsultationWorkspace'
 import { ToolWorkspace } from './features/ask/ToolWorkspace'
 import { DocumentBrowser } from './features/documents/DocumentBrowser'
 import { DocumentReader } from './features/documents/DocumentReader'
-import { ProfileWorkspace, profileHref } from './features/profile/ProfileWorkspace'
-import { AccountProfileLink } from './features/profile/AccountProfileLink'
-import { readRequestPreference, saveRequestPreference } from './features/requests/history'
+import { ProfileWorkspace } from './features/profile/ProfileWorkspace'
 import { RequestWorkspace } from './features/requests/RequestWorkspace'
 import { useResource } from './hooks/useResource'
 import { ResourceCache } from './hooks/resourceCache'
 import type { Member } from './features/auth/AuthGate'
-
-function readRoute(hash: string, requestView = '', graphView = false) {
-  const [section, query] = hash.split('?', 2)
-  const parameters = new URLSearchParams(query)
-  if (section === '#requests') {
-    const view = new URLSearchParams()
-    for (const key of ['status', 'sort']) {
-      const value = parameters.get(key)
-      if (value) view.set(key, value)
-    }
-    requestView = view.toString()
-  }
-  if (section === '#documents') graphView = parameters.get('view') === 'graph'
-  return { section, parameters, requestView, graphView }
-}
+import { DeskSidebar } from './navigation/DeskSidebar'
+import { consultationHref, profileHref, requestsHref } from './navigation/routes'
+import { useDeskRoute } from './navigation/useDeskRoute'
 
 type Props = {
   member?: Member; roleLabel?: string; onLogout?: () => void; accountError?: string; accountBusy?: boolean
@@ -44,20 +27,17 @@ export default function App(props: Props) {
 
 function Desk({ member, roleLabel, onLogout, accountError, accountBusy, onPasswordChanged }: Props) {
   const cache = useContext(ResourceCache)
-  const [{ section, parameters, requestView, graphView }, setRoute] = useState(() =>
-    readRoute(window.location.hash, readRequestPreference('view')),
-  )
+  const { section, parameters, requestView, graphView } = useDeskRoute()
   const [suggestedQuestion, setSuggestedQuestion] = useState('')
   const [conversationRevision, setConversationRevision] = useState(0)
   const [catalogRevision, setCatalogRevision] = useState(0)
   const [ownCertificateUpdate, setOwnCertificateUpdate] = useState<OwnCertificateUpdate | null>(null)
   const memberId = member?.user_id
-  const waiting = ownCertificateUpdate?.waiting ?? 0
   const requests = section === '#requests'
   const asking = section === '#ask'
   const profile = section === profileHref && Boolean(member && onPasswordChanged)
-  const requestListHref = requestView ? `#requests?${requestView}` : '#requests'
-  const requestComposeHref = requestView ? `#requests?compose&${requestView}` : '#requests?compose'
+  const requestListHref = requestsHref(requestView)
+  const requestComposeHref = requestsHref(requestView, 'compose')
   const askSourceId = asking ? parameters.get('chunk') : null
   const toolsRoute = asking && parameters.has('tools')
   const consultationRoute = asking && parameters.has('consultation')
@@ -103,14 +83,6 @@ function Desk({ member, roleLabel, onLogout, accountError, accountBusy, onPasswo
   }
 
   useEffect(() => {
-    saveRequestPreference('view', requestView)
-  }, [requestView])
-
-  useEffect(() => {
-    const update = (event: HashChangeEvent) => {
-      const hash = new URL(event.newURL).hash
-      setRoute((previous) => readRoute(hash, previous.requestView, previous.graphView))
-    }
     const search = (event: KeyboardEvent) => {
       if (!(event.ctrlKey || event.metaKey) || event.code !== 'KeyK') return
       event.preventDefault()
@@ -120,12 +92,8 @@ function Desk({ member, roleLabel, onLogout, accountError, accountBusy, onPasswo
         window.location.hash = documentSearchHref
       }
     }
-    window.addEventListener('hashchange', update)
     window.addEventListener('keydown', search)
-    return () => {
-      window.removeEventListener('hashchange', update)
-      window.removeEventListener('keydown', search)
-    }
+    return () => window.removeEventListener('keydown', search)
   }, [documentSearchHref])
 
   useLayoutEffect(() => {
@@ -170,64 +138,12 @@ function Desk({ member, roleLabel, onLogout, accountError, accountBusy, onPasswo
       >
         Перейти к содержимому
       </a>
-      <header className="desk-sidebar">
-        <div className="sidebar-heading">
-          <a
-            className="brand"
-            href={catalogHref}
-            aria-label="Knowledge Desk: документы"
-          >
-            <img className="brand-mark" src="/favicon.svg" width="25" height="25" alt="" />
-            <span translate="no">Knowledge Desk</span>
-          </a>
-          {!requests && <a
-            className="icon-button compose-button"
-            href={requestComposeHref}
-            aria-label="Новая заявка"
-            title="Новая заявка"
-          >
-            <Icon name="compose" />
-          </a>}
-        </div>
-        <a className="sidebar-search" href={documentSearchHref} aria-label="Поиск документов"
-          onClick={() => { if (searchRequested) document.getElementById('document-search')?.focus() }}>
-          <Icon name="search" />Поиск<kbd>{/Mac/i.test(navigator.platform) ? '⌘ K' : 'Ctrl K'}</kbd>
-        </a>
-        <nav className="primary-nav" aria-label="Основная навигация">
-          <a
-            href={catalogHref}
-            aria-current={!requests && !asking && !profile ? 'page' : undefined}
-          >
-            <Icon name="file" />
-            Документы
-          </a>
-          <a href="#ask" data-section-active={asking || undefined} aria-current={asking && !toolsRoute && !consultationRoute ? 'page' : undefined}>
-            <Icon name="chat" />
-            Ответы
-          </a>
-          <div className="answer-nav">
-            <a href="#ask?tools" aria-current={toolsRoute ? 'page' : undefined}>Помощник</a>
-            <a href="#ask?consultation" aria-current={consultationRoute ? 'page' : undefined}>Консультация</a>
-          </div>
-          <a href={requestListHref} aria-current={requests ? 'page' : undefined}
-            aria-describedby={waiting > 0 ? 'request-nav-status' : undefined}>
-            <Icon name="inbox" />
-            <span className="request-nav-label">
-              Заявки
-              {waiting > 0 && <span className="request-nav-count" aria-hidden="true">{waiting}</span>}
-            </span>
-          </a>
-          {member && <span id="request-nav-status" className="request-nav-status" role="status">
-            {ownCertificateUpdate && `Заявки, где нужен ваш ответ — ${waiting}`}
-          </span>}
-        </nav>
-        {member && <div className="sidebar-account">
-          <AccountProfileLink email={member.email} role={roleLabel} active={profile} />
-          <button type="button" className="icon-button" aria-label={accountBusy ? 'Выходим…' : 'Выйти'} title="Выйти"
-            disabled={accountBusy} onClick={onLogout}>{accountBusy ? <LoadingMark compact /> : <Icon name="exit" />}</button>
-          {accountError && <p role="alert" className="field-error">{accountError}</p>}
-        </div>}
-      </header>
+      <DeskSidebar member={member} roleLabel={roleLabel} onLogout={onLogout} accountBusy={accountBusy}
+        accountError={accountError} waitingForAnswer={ownCertificateUpdate?.waiting}
+        catalogHref={catalogHref} documentSearchHref={documentSearchHref}
+        requestListHref={requestListHref} requestComposeHref={requestComposeHref} requests={requests}
+        asking={asking} profile={profile} toolsRoute={toolsRoute} consultationRoute={consultationRoute}
+        searchRequested={searchRequested} />
       <main className="app-shell" id="main-content" tabIndex={-1}>
         {profile && member && onPasswordChanged && (
           <ProfileWorkspace member={member} roleLabel={roleLabel ?? ''} onPasswordChanged={onPasswordChanged}

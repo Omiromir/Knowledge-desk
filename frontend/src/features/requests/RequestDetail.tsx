@@ -3,7 +3,7 @@ import { watchCertificateUpdates } from '../../api/certificates'
 import { ApiError, errorMessage } from '../../api/client'
 import { getDelivery } from '../../api/delivery'
 import { changeRequestReply, getRequest, MAX_REQUEST_REPLY_LENGTH, replyToRequest, updateRequestStatus } from '../../api/requests'
-import type { DocumentRecord, RequestRecord, RequestStatus } from '../../api/types'
+import type { DocumentRecord, RequestRecord } from '../../api/types'
 import { AsyncState } from '../../components/AsyncState'
 import { DeliveryStatus } from '../../components/DeliveryStatus'
 import { Icon } from '../../components/Icons'
@@ -13,87 +13,15 @@ import { REQUEST_STALE_AFTER_MS } from '../../hooks/resourceCache'
 import { ProfileAvatar } from '../profile/ProfileAvatar'
 import { CertificatePanel } from './EmploymentCertificate'
 import { RequestReplyItem } from './RequestReplyItem'
+import { RequestStatusLabel } from './RequestStatusLabel'
+import { requestDateTime, workflow } from './requestPresentation'
 import type { ReplyDraft } from './replyDrafts'
 import { useCloudReplyDraft } from './useCloudReplyDraft'
 import { useMessageAuthor } from './useMessageAuthor'
 
-const workflow: Record<RequestStatus, { label: string; action: string; next: RequestStatus }> = {
-  new: { label: 'Новая', action: 'Взять в работу', next: 'in_progress' },
-  in_progress: { label: 'В работе', action: 'Закрыть заявку', next: 'resolved' },
-  resolved: { label: 'Закрыта', action: 'Возобновить', next: 'in_progress' },
-}
-const requestDate = new Intl.DateTimeFormat('ru-RU', {
-  day: 'numeric', month: 'long', year: 'numeric',
-})
-const requestTime = new Intl.DateTimeFormat('ru-RU', {
-  hour: '2-digit', minute: '2-digit',
-})
-const requestDateTime = new Intl.DateTimeFormat('ru-RU', {
-  day: 'numeric', month: 'long', year: 'numeric',
-  hour: '2-digit', minute: '2-digit', second: '2-digit',
-})
-
-function highlightedMatch(match: RegExpExecArray, start = 0, end = match.input.length) {
-  const after = match.index + match[0].length
-  return (
-    <>
-      {start > 0 && '…'}{match.input.slice(start, match.index)}
-      <mark>{match[0]}</mark>
-      {match.input.slice(after, end)}{end < match.input.length && '…'}
-    </>
-  )
-}
-
 function useRequest(id: string) {
   const load = useCallback((signal: AbortSignal) => getRequest(id, signal), [id])
   return useResource(load, { key: `request:${id}`, staleAfterMs: REQUEST_STALE_AFTER_MS })
-}
-
-function RequestStatusLabel({ record, personal = false }: { record: RequestRecord; personal?: boolean }) {
-  const waiting = record.certificate_awaiting_reply
-  const label = waiting ? (personal ? 'Нужен ваш ответ' : 'Ждёт ответа') : workflow[record.status].label
-  return (
-    <span className="request-status" data-status={waiting ? 'awaiting_employee' : record.status}
-      aria-live={personal && record.kind === 'employment_certificate' ? 'polite' : undefined}>{label}</span>
-  )
-}
-
-export function RequestHistoryRow({ record, href, today, questionMatch, replyMatch, selected, operator }: {
-  record: RequestRecord
-  href: string
-  today: string
-  selected: boolean
-  operator: boolean
-  questionMatch?: RegExpExecArray | null
-  replyMatch?: RegExpExecArray | null
-}) {
-  const date = record.created_at ? new Date(record.created_at) : null
-  const isToday = date?.toDateString() === today
-  return (
-    <a className="request-history-row" href={href} aria-current={selected ? 'true' : undefined}>
-      {operator && <span className="queue-author"><span aria-hidden="true">{record.name.trim().slice(0, 1).toUpperCase()}</span>{record.name}</span>}
-      <span className="request-history-copy">
-        <span className="request-question">
-          {questionMatch ? highlightedMatch(questionMatch) : record.question}
-        </span>
-        {replyMatch && (
-          <span className="request-match-snippet">
-            {highlightedMatch(replyMatch, Math.max(0, replyMatch.index - 20), replyMatch.index + replyMatch[0].length + 75)}
-          </span>
-        )}
-      </span>
-      <span className="request-history-meta">
-        <RequestStatusLabel record={record} personal={!operator} />
-        {date ? (
-          <time className="request-history-date" dateTime={record.created_at} title={requestDateTime.format(date)}>
-            {(isToday ? requestTime : requestDate).format(date)}
-          </time>
-        ) : (
-          <span className="request-history-date" title="Дата отправки неизвестна">—</span>
-        )}
-      </span>
-    </a>
-  )
 }
 
 export function RequestDetail({

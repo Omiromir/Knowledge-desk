@@ -97,7 +97,7 @@ export function useResource<T>(
     if (key) cache?.delete(key)
   }
 
-  return { ...snapshot, reload, refresh: reload, replace, forget }
+  return { ...snapshot, reload, replace, forget }
 }
 
 function remember(cache: NonNullable<React.ContextType<typeof ResourceCache>>, key: string, data: unknown) {

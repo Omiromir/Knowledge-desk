@@ -56,7 +56,3 @@ export async function consultation(
   if (!isConsultation(result)) throw new ApiError('Сервер вернул некорректный черновик.')
   return result
 }
-
-export function consultationHref(id?: string) {
-  return id ? `#ask?consultation=${encodeURIComponent(id)}` : '#ask?consultation'
-}

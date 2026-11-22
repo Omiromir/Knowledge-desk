@@ -4,12 +4,12 @@ import { avatarUrl, changePassword, removeAvatar, saveDisplayName, uploadAvatar 
 import { AsyncState } from '../../components/AsyncState'
 import { Icon } from '../../components/Icons'
 import { LoadingMark } from '../../components/LoadingMark'
+import { profileHref } from '../../navigation/routes'
 import type { Member } from '../auth/AuthGate'
 import { CurrentProfile } from './currentProfileContext'
 import { ProfileAvatar } from './ProfileAvatar'
 import './profile.css'
 
-export const profileHref = '#profile'
 const securityHref = '#profile?tab=security'
 
 type Props = {

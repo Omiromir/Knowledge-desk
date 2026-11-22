@@ -1,8 +1,9 @@
 import { useRef, useSyncExternalStore } from 'react'
 import { Icon } from '../../components/Icons'
 import { LoadingMark } from '../../components/LoadingMark'
+import { profileHref, readHash } from '../../navigation/routes'
 import type { Member } from '../auth/AuthGate'
-import { ProfileWorkspace, profileHref } from '../profile/ProfileWorkspace'
+import { ProfileWorkspace } from '../profile/ProfileWorkspace'
 import { AdminWorkspace } from './AdminWorkspace'
 
 function subscribeToRoute(callback: () => void) {
@@ -20,7 +21,7 @@ export function Administration({ member, busy, error, onLogout, onPasswordChange
   onPasswordChanged: () => void
 }) {
   const main = useRef<HTMLElement>(null)
-  const [section, query] = useSyncExternalStore(subscribeToRoute, getRoute).split('?', 2)
+  const { section, parameters } = readHash(useSyncExternalStore(subscribeToRoute, getRoute))
   const profile = section === profileHref
   return (
     <div className="admin-shell">
@@ -45,7 +46,7 @@ export function Administration({ member, busy, error, onLogout, onPasswordChange
       <main className="app-shell" id="admin-content" tabIndex={-1} ref={main}>
         {profile
           ? <ProfileWorkspace member={member} roleLabel="Администратор" onPasswordChanged={onPasswordChanged}
-              security={new URLSearchParams(query).get('tab') === 'security'} admin />
+              security={parameters.get('tab') === 'security'} admin />
           : <AdminWorkspace />}
       </main>
     </div>

@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import { avatarUrl } from '../../api/profile'
+import { profileHref } from '../../navigation/routes'
 import { CurrentProfile } from './currentProfileContext'
 import { ProfileAvatar } from './ProfileAvatar'
-import { profileHref } from './ProfileWorkspace'
 
 export function AccountProfileLink({ email, role, active }: { email: string; role?: string; active: boolean }) {
   const profile = useContext(CurrentProfile)?.data
