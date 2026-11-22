@@ -9,7 +9,7 @@ from tempfile import TemporaryDirectory
 from uuid import UUID
 
 from backend.app import database, postgres
-from ingest import load_corpus, normalize
+from backend.rag_index.ingest import load_corpus, normalize
 
 # Ordered by foreign-key dependency. Identifiers below are fixed application schema names.
 KEYS = {

@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from backend.app import database
+from backend.app.storage import documents as document_store
 from backend.app.main import FRONTEND_ORIGIN, app
 
 
@@ -46,7 +46,7 @@ def test_unexpected_error_keeps_safe_body_and_cors(client, monkeypatch, caplog, 
     def fail():
         raise RuntimeError("Private database detail")
 
-    monkeypatch.setattr(database, "list_documents", fail)
+    monkeypatch.setattr(document_store, "list_documents", fail)
     with TestClient(app, raise_server_exceptions=False) as error_client:
         response = error_client.get("/documents", headers={"Origin": origin})
     assert response.status_code == 500

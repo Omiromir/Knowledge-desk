@@ -3,7 +3,7 @@
 import json
 import pytest
 
-import ingest
+from backend.rag_index import ingest
 
 
 @pytest.fixture

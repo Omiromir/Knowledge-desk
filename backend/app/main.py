@@ -13,7 +13,8 @@ from fastapi.staticfiles import StaticFiles
 from starlette.concurrency import run_in_threadpool
 
 from . import auth, database, originals, postgres
-from .api import admin, ai, auth as auth_api, consultations, documents, errors, health, profile, requests, resend_webhook
+from .api import admin, ai, consultations, documents, errors, health, profile, request_certificates, request_delivery, requests, resend_webhook
+from .api import auth as auth_api
 from .certificate_updates import CertificateUpdates
 from .config import FRONTEND_ORIGIN, require_auth, validate_origin
 from .consultation_store import DraftConflict
@@ -28,9 +29,13 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI):
     validate_origin()
     app.state.expensive_requests = ExpensiveRequests()
+    protected = require_auth()
     auth_config = auth.settings()
-    if (require_auth() or postgres.database_url()) and auth_config is None:
+    url = postgres.database_url()
+    if (protected or url) and auth_config is None:
         raise RuntimeError("This mode requires Supabase authentication.")
+    if protected and not url:
+        raise RuntimeError("This mode requires a PostgreSQL database.")
     try:
         database.init_db()
     except Exception as exc:
@@ -38,7 +43,6 @@ async def lifespan(app: FastAPI):
         raise RuntimeError("Database initialization failed.") from None
     await run_in_threadpool(originals.retry_cleanup)
     updates = app.state.certificate_updates = CertificateUpdates()
-    url = postgres.database_url()
     listener = asyncio.create_task(updates.listen(url)) if url else None
     try:
         yield
@@ -96,7 +100,10 @@ def create_app() -> FastAPI:
     application.add_exception_handler(RequestValidationError, errors.invalid_input)
     application.include_router(health.router)
     application.include_router(documents.router)
+    # The certificate event stream has a static path beside the unrestricted request ID route.
+    application.include_router(request_certificates.router)
     application.include_router(requests.router)
+    application.include_router(request_delivery.router)
     application.include_router(ai.router)
     application.include_router(consultations.router)
     application.include_router(auth_api.router)

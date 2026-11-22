@@ -11,8 +11,8 @@ from math import ceil, isfinite
 from pathlib import Path
 from time import perf_counter
 
-from ingest import CHUNK_SIZES, INDEX, MANIFEST, ROOT, TARGET, embedding_model, ingest, load_corpus, open_collection
-from retrieve import TOP_K, resolve_chunk, search, source_record
+from backend.rag_index.ingest import CHUNK_SIZES, INDEX, MANIFEST, ROOT, TARGET, embedding_model, ingest, load_corpus, open_collection
+from backend.rag_index.retrieve import TOP_K, resolve_chunk, search, source_record
 
 from .app.eval_budget import MODEL as EXPERIMENT_MODEL, PRICING_DATE, PRICING_URL, EvalBudget, price
 from .app.prompts import read_prompt

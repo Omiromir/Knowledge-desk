@@ -10,7 +10,7 @@ from zipfile import ZipFile
 from docx import Document
 from docx.table import Table
 from pypdf import PdfReader, PdfWriter
-from ingest import normalize
+from backend.rag_index.ingest import normalize
 
 from .domain import NotFoundError
 from .pdf_ocr import open_scan

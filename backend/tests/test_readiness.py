@@ -1,10 +1,11 @@
 import json
 import logging
+from contextlib import contextmanager
 
 from fastapi.testclient import TestClient
 from pytest import raises
 
-from backend.app import config, database, main, telemetry
+from backend.app import config, database, main, postgres, telemetry
 from backend.app.api import health
 
 
@@ -40,6 +41,39 @@ def test_deployment_fails_closed_if_auth_is_missing(tmp_path, monkeypatch):
     with raises(RuntimeError, match="requires Supabase authentication"), TestClient(main.create_app()):
         pass
     assert not database.DB_PATH.exists()
+
+
+def test_protected_deployment_cannot_fall_back_to_sqlite(tmp_path, monkeypatch):
+    monkeypatch.setenv("KNOWLEDGE_DESK_REQUIRE_AUTH", "1")
+    monkeypatch.setenv("KNOWLEDGE_DESK_SUPABASE_URL", "https://auth.example.test")
+    monkeypatch.setenv("KNOWLEDGE_DESK_SUPABASE_PUBLISHABLE_KEY", "fixture-key")
+    monkeypatch.setenv("KNOWLEDGE_DESK_DATABASE_URL", "  ")
+    monkeypatch.setattr(config, "FRONTEND_ORIGIN", "https://desk.example.test")
+    monkeypatch.setattr(database, "DB_PATH", tmp_path / "protected.sqlite3")
+    with raises(RuntimeError, match="requires a PostgreSQL database"), TestClient(main.create_app()):
+        pass
+    assert not database.DB_PATH.exists()
+
+
+def test_postgres_health_rejects_schema_without_reply_author(client, monkeypatch):
+    class LegacyConnection:
+        def execute(self, statement):
+            if "request_replies.author_id" in statement:
+                raise RuntimeError("column author_id does not exist")
+
+    @contextmanager
+    def legacy_database():
+        yield LegacyConnection()
+
+    monkeypatch.setattr(postgres, "database_url", lambda: "postgresql://fixture")
+    monkeypatch.setattr(database, "connect", legacy_database)
+    monkeypatch.setattr(health, "index_ready", lambda: True)
+    with raises(RuntimeError, match="column author_id does not exist"):
+        database.init_db()
+    response = client.get("/health")
+    assert response.status_code == 503
+    assert response.json() == {"status": "not_ready", "database": "unavailable", "index": "ok"}
+    assert "author_id" not in response.text
 
 
 def test_http_trace_uses_server_id_and_keeps_private_input_out(client, caplog):

@@ -6,7 +6,7 @@ import re
 import subprocess
 from pathlib import Path
 
-from ingest import MANIFEST, ROOT
+from backend.rag_index.ingest import MANIFEST, ROOT
 
 
 def digest(value: str) -> str:
@@ -34,8 +34,9 @@ def commit() -> str | None:
 def manifest(*, model: str, prompt_version: str, effective_prompts: dict, cases: Path, dataset_version: str,
              corpus: dict, index: dict, retrieval: dict) -> dict:
     prompt_files = sorted((ROOT / "prompts").rglob("*.txt"))
-    source_files = [*sorted((ROOT / "backend" / "app").rglob("*.py")),
-                    *sorted((ROOT / "backend").glob("*eval*.py")), ROOT / "ingest.py", ROOT / "retrieve.py"]
+    backend = ROOT / "backend"
+    source_files = [*sorted((backend / "app").rglob("*.py")),
+                    *sorted((backend / "rag_index").rglob("*.py")), *sorted(backend.glob("*eval*.py"))]
     inputs = {
         "model": model,
         "prompts": {

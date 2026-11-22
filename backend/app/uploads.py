@@ -9,14 +9,15 @@ from pathlib import Path
 from threading import RLock
 from uuid import NAMESPACE_URL, uuid5
 
-from ingest import Document as CorpusDocument
-from ingest import COLLECTION as MANIFEST_COLLECTION
-from ingest import MANIFEST, chunk_document, embed, normalize, open_collection
+from backend.rag_index.ingest import Document as CorpusDocument
+from backend.rag_index.ingest import COLLECTION as MANIFEST_COLLECTION
+from backend.rag_index.ingest import MANIFEST, chunk_document, embed, normalize, open_collection
 
 from . import database, originals, postgres, vector_index
 from .document_files import MAX_EXTRACTED_BYTES, read_file
 from .domain import Document, NotFoundError
 from .services import DocumentService
+from .storage import documents as document_store
 from .summarizer import SummaryError
 
 logger = logging.getLogger(__name__)
@@ -36,7 +37,7 @@ def corpus_document(record, version_date: str) -> CorpusDocument:
 
 def active_corpus() -> tuple[dict[str, CorpusDocument], dict[str, str], set[str]]:
     documents, versions = {}, {}
-    rows, hidden = database.index_visibility(MANIFEST_COLLECTION)
+    rows, hidden = document_store.index_visibility(MANIFEST_COLLECTION)
     for row in rows:
         record = Document(row["id"], row["title"], row["text"], row["source"])
         documents[record.id] = corpus_document(record, row["version_date"])
@@ -90,7 +91,7 @@ def publish(
     index = None
     try:
         if index_key == previous_key:
-            database.save_uploaded_document(record, date, index_key, update=True)
+            document_store.save_uploaded_document(record, date, index_key, update=True)
             return
         rows = list(upload_chunks(doc, spans))
         texts = [text for _, text, _ in rows]
@@ -107,7 +108,7 @@ def publish(
         original = None
         if pdf is not None:
             original = (*pdf, hashlib.sha256(doc.text.encode("utf-8")).hexdigest(), json.dumps(spans))
-        database.save_uploaded_document(
+        document_store.save_uploaded_document(
             record, date, index_key, update=update, hidden_source=hidden_source, pdf=original, owner_id=owner_id,
             chunks=chunks,
         )
@@ -130,22 +131,22 @@ def add(filename: str, content: bytes, *, owner_id: str | None = None) -> Docume
     record = Document(str(uuid5(NAMESPACE_URL, identity)), Path(filename).stem.strip() or filename, text, filename)
     pdf = (filename, content) if spans else None
     with _writes:
-        existing = database.get_document(record.id)
+        existing = document_store.get_document(record.id)
         if pdf is None and existing:
             return existing
         if pdf:
             # PDFs with the same extracted text can have different originals or page layouts.
             file_identity = prefix + "pdf:" + json.dumps([filename, hashlib.sha256(content).hexdigest()])
             file_id = str(uuid5(NAMESPACE_URL, file_identity))
-            saved = database.get_document(file_id)
+            saved = document_store.get_document(file_id)
             if saved:
                 return saved
             if existing:
-                original = database.get_pdf(existing.id)
+                original = document_store.get_pdf(existing.id)
                 if original and originals.matches(original, content):
                     return existing
                 if original is None and existing.source == filename and normalize(existing.text) == normalize(text):
-                    version = database.uploaded_version(existing.id)
+                    version = document_store.uploaded_version(existing.id)
                     publish(existing, version["index_key"] if version else None, update=True, pdf=pdf, spans=spans)
                     return existing
             record = replace(record, id=file_id)
@@ -155,7 +156,7 @@ def add(filename: str, content: bytes, *, owner_id: str | None = None) -> Docume
 
 def update(service: DocumentService, document_id: str, changes: dict[str, str]) -> Document:
     with _writes:
-        version = database.uploaded_version(document_id)
+        version = document_store.uploaded_version(document_id)
         original = service.get(document_id)
         cloud = bool(postgres.database_url())
         hidden_source = manifest_source(original) if version is None and not cloud else None
@@ -169,7 +170,7 @@ def update(service: DocumentService, document_id: str, changes: dict[str, str]) 
             raise SummaryError("upload_text_too_large", "The text exceeds 256 KiB.")
         # Keep page links only while the indexed text still matches the original PDF.
         text_hash = hashlib.sha256(normalize(record.text).encode("utf-8")).hexdigest()
-        spans = database.pdf_spans(document_id, text_hash)
+        spans = document_store.pdf_spans(document_id, text_hash)
         publish(
             record, version["index_key"] if version else None, update=True, hidden_source=hidden_source, spans=spans,
         )
@@ -179,13 +180,13 @@ def update(service: DocumentService, document_id: str, changes: dict[str, str]) 
 def delete(service: DocumentService, document_id: str) -> None:
     with _writes:
         if postgres.database_url():
-            if not database.delete_document(document_id):
+            if not document_store.delete_document(document_id):
                 raise NotFoundError("Document not found.")
             return
-        version = database.uploaded_version(document_id)
+        version = document_store.uploaded_version(document_id)
         record = service.get(document_id)
         hidden_source = manifest_source(record) if version is None else None
-        if not database.delete_document(document_id, hidden_source=hidden_source):
+        if not document_store.delete_document(document_id, hidden_source=hidden_source):
             raise NotFoundError("Document not found.")
         if version is not None:
             try:

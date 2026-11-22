@@ -3,6 +3,7 @@ from unittest.mock import Mock
 from uuid import uuid4
 
 from backend.app import auth, database, originals
+from backend.app.storage import documents as document_store
 from backend.tests.test_uploads import pdf_file
 
 
@@ -24,7 +25,7 @@ def test_original_route_checks_access_before_fetching_storage(client, monkeypatc
     get_pdf = Mock(return_value={"filename": "sample.pdf", "content": None, "object_key": key,
                                  "content_sha256": sha256(content).hexdigest()})
     fetch = Mock(return_value=content)
-    monkeypatch.setattr(database, "get_pdf", get_pdf)
+    monkeypatch.setattr(document_store, "get_pdf", get_pdf)
     monkeypatch.setattr(originals, "storage_request", fetch)
 
     assert client.get(path).status_code == 401

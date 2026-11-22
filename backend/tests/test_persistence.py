@@ -15,6 +15,7 @@ from urllib.parse import quote
 from urllib.request import Request, urlopen
 
 from backend.app import database
+from backend.app.storage import documents as document_store, requests as request_store
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
@@ -35,7 +36,7 @@ class PersistenceTests(unittest.TestCase):
     def start_server(self):
         self.log = self.log_path.open("a", encoding="utf-8")
         self.process = subprocess.Popen(
-            [sys.executable, "-m", "uvicorn", "backend.app.main:app",
+            [sys.executable, "-B", "-X", "utf8", "-m", "uvicorn", "backend.app.main:app",
              "--host", "127.0.0.1", "--port", str(self.port)],
             cwd=PROJECT_ROOT,
             env={**os.environ, "KNOWLEDGE_DESK_DB_PATH": str(self.db_path)},
@@ -178,14 +179,14 @@ class PersistenceTests(unittest.TestCase):
                             "INSERT INTO documents (id, title, text, source) VALUES (?, ?, ?, ?)",
                             ("same-id", "title", "text", "source"),
                         )
-            self.assertEqual(database.list_documents(), [])
+            self.assertEqual(document_store.list_documents(), [])
             with database.connect() as connection:
                 connection.execute(
                     "INSERT INTO documents (id, title, text, source) VALUES (?, ?, ?, ?)",
                     ("kept-id", "title", "text", "source"),
                 )
             database.init_db()
-            self.assertEqual(database.get_document("kept-id").text, "text")
+            self.assertEqual(document_store.get_document("kept-id").text, "text")
 
     def test_existing_requests_survive_schema_upgrade(self):
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
@@ -203,7 +204,7 @@ class PersistenceTests(unittest.TestCase):
                 )
             database.init_db()
             database.init_db()
-            record = database.get_request("old-id")
+            record = request_store.get_request("old-id")
             self.assertEqual(record.question, "Old question")
             self.assertIsNone(record.document_id)
             self.assertIsNone(record.created_at)
@@ -223,12 +224,12 @@ class PersistenceTests(unittest.TestCase):
                 )
                 connection.execute("INSERT INTO requests VALUES ('old', 'Reader', 'Old question', 'new', 'doc')")
             database.init_db()
-            updated = database.update_request_status("old", "new", "in_progress")
+            updated = request_store.update_request_status("old", "new", "in_progress")
             self.assertEqual(updated.document_id, "doc")
             database.init_db()
-            self.assertEqual(database.get_request("old"), updated)
-            self.assertTrue(database.delete_document("doc"))
-            self.assertIsNone(database.get_request("old").document_id)
+            self.assertEqual(request_store.get_request("old"), updated)
+            self.assertTrue(document_store.delete_document("doc"))
+            self.assertIsNone(request_store.get_request("old").document_id)
 
 
 if __name__ == "__main__":

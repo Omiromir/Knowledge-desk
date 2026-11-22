@@ -3,6 +3,7 @@
 import argparse
 
 from .app import database, originals, postgres
+from .app.storage import documents as document_store
 
 
 def migrate() -> int:
@@ -13,7 +14,7 @@ def migrate() -> int:
     transferred = 0
     for row in ids:
         document_id = row["document_id"]
-        pdf = database.get_pdf(document_id)
+        pdf = document_store.get_pdf(document_id)
         if pdf is None or pdf["content"] is None:
             continue
         content = pdf["content"]

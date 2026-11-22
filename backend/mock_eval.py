@@ -10,8 +10,8 @@ from unittest.mock import patch
 import httpx
 from openai import AsyncOpenAI
 
-from ingest import ROOT, chunk_document, index_metadata, load_corpus
-from retrieve import TOP_K, source_record
+from backend.rag_index.ingest import ROOT, chunk_document, index_metadata, load_corpus
+from backend.rag_index.retrieve import TOP_K, source_record
 
 from .app import database, rag, summarizer, tool_execution
 from .app.eval_budget import MODEL

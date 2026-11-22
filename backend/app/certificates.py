@@ -18,6 +18,7 @@ from pypdf.errors import PyPdfError
 from . import certificate_notifications, database, postgres
 from .certificate_updates import CHANNEL as CERTIFICATE_UPDATE_CHANNEL
 from .certificate_updates import card_topic, owner_topic
+from .storage import members as member_store, requests as request_store
 from .domain import NotFoundError, RequestRecord
 from .services import new_request
 
@@ -84,7 +85,7 @@ def issuer_granted(user_id: str, override: bool | None) -> bool:
 
 
 def can_issue(user_id: str, can_operate_requests: bool) -> bool:
-    return can_operate_requests and issuer_granted(user_id, database.member_certificate_issuer(user_id))
+    return can_operate_requests and issuer_granted(user_id, member_store.member_certificate_issuer(user_id))
 
 
 def render_draft(employee: Employee, purpose: str) -> bytes:
@@ -127,7 +128,7 @@ def create(user_id: str, purpose: str, *, email: str | None = None) -> RequestRe
     record = replace(new_request(employee.full_name, TITLE, user_id=user_id), kind=KIND)
     with database.connect() as connection:
         set_actor(connection, user_id)
-        database.insert_request(connection, record)
+        request_store.insert_request(connection, record)
         connection.execute("UPDATE requests SET kind = ? WHERE id = ?", (KIND, record.id))
         connection.execute("INSERT INTO request_certificates (request_id, draft) VALUES (?, ?)", (record.id, draft))
         if email:

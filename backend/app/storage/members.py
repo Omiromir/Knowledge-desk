@@ -1,7 +1,9 @@
+"""Read member permissions and store optional profile data."""
+
 from contextlib import contextmanager
 from uuid import uuid4
 
-from . import database, postgres
+from .. import database, postgres
 
 
 @contextmanager
@@ -66,3 +68,17 @@ def save_avatar(user_id: str, avatar: bytes | None):
             (user_id, avatar, str(uuid4()) if avatar is not None else None),
         ).fetchone()
     return dict(row)
+
+
+def member_permissions(user_id: str) -> tuple[str, bool] | None:
+    with database.connect() as connection:
+        row = connection.execute(
+            "SELECT role, can_operate_requests FROM members WHERE user_id = ?", (user_id,)
+        ).fetchone()
+    return (row["role"], bool(row["can_operate_requests"])) if row else None
+
+
+def member_certificate_issuer(user_id: str) -> bool | None:
+    with database.connect() as connection:
+        row = connection.execute("SELECT certificate_issuer FROM members WHERE user_id = ?", (user_id,)).fetchone()
+    return bool(row["certificate_issuer"]) if row and row["certificate_issuer"] is not None else None

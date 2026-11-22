@@ -18,10 +18,11 @@ from redis.backoff import NoBackoff
 from redis.exceptions import RedisError
 from redis.retry import Retry
 
-from ingest import DIMENSION, INDEX, MANIFEST, MODEL, REVISION, TARGET, embed, load_corpus, normalize, open_collection
-from retrieve import TOP_K, resolve_chunk, search
+from backend.rag_index.ingest import DIMENSION, INDEX, MANIFEST, MODEL, REVISION, TARGET, embed, load_corpus, normalize, open_collection
+from backend.rag_index.retrieve import TOP_K, resolve_chunk, search
 
-from . import database, postgres, uploads, vector_index
+from . import postgres, uploads, vector_index
+from .storage import documents as document_store
 from .summarizer import TIMEOUT_SECONDS, SummaryError, complete_structured
 from .telemetry import stage
 from .prompts import read_prompt
@@ -181,7 +182,7 @@ def scoped_corpus(user_id: str | None, *, include_manifest: bool):
         where = {"source": {"$nin": sorted(hidden)}} if hidden else None
         return catalog, versions, manifest, where
 
-    readable = database.readable_documents(user_id)
+    readable = document_store.readable_documents(user_id)
     ids = {doc.id for doc in readable}
     materialized = {(doc.source, doc.title, normalize(doc.text)) for doc in readable}
     manifest = {key: doc for key, doc in manifest.items()

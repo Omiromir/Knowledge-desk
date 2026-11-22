@@ -8,7 +8,7 @@ from uuid import UUID
 import httpx
 from fastapi import HTTPException, Request
 
-from . import database
+from .storage import members as member_store
 
 Role = Literal["reader", "editor", "operator", "admin"]
 COOKIE = "knowledge_desk_access"
@@ -63,7 +63,7 @@ def member(profile: dict) -> Member:
             raise ValueError("Missing email")
     except (AttributeError, KeyError, TypeError, ValueError):
         raise HTTPException(401, "Войдите снова.") from None
-    permissions = database.member_permissions(user_id)
+    permissions = member_store.member_permissions(user_id)
     if permissions is None or permissions[0] not in ("reader", "editor", "operator", "admin"):
         raise HTTPException(403, "Для этого аккаунта ещё не назначен доступ к Knowledge Desk.")
     role, can_operate_requests = permissions

@@ -8,6 +8,7 @@ from . import database, postgres
 from .domain import NotFoundError
 from .integration_delivery import queue_created
 from .services import new_request
+from .storage import requests as request_store
 
 
 class DraftConflict(Exception):
@@ -107,7 +108,7 @@ def submit_confirmed(user_id: str, draft_id: str, version: int, digest: str) -> 
         if row["request_id"]:
             return row["request_id"]
         request = new_request(row["name"], row["question"], user_id=user_id)
-        database.insert_request(connection, request)
+        request_store.insert_request(connection, request)
         connection.execute(
             "INSERT INTO consultation_receipts (user_id, operation_key, payload_hash, request_id) VALUES (?, ?, ?, ?)",
             (user_id, operation_key(draft_id, version), digest, request.id),

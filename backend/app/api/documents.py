@@ -7,7 +7,8 @@ from starlette.concurrency import run_in_threadpool
 
 from ..models import Document, DocumentCreate, DocumentPatch
 from ..rate_limit import limit_expensive
-from .. import database, originals, uploads
+from .. import originals, uploads
+from ..storage import documents as document_store
 from ..document_files import MAX_FILE_BYTES, MAX_PLAIN_BYTES, TEXT_EXTENSIONS, extension_for, extract_pdf_page
 from ..domain import NotFoundError
 from ..services import DocumentService
@@ -52,7 +53,7 @@ def upload_error(exc: SummaryError) -> HTTPException:
 
 @router.get("", response_model=list[Document])
 def list_documents(service: Service, context: Context):
-    return database.readable_documents(context.user_id) if context.role else service.list()
+    return document_store.readable_documents(context.user_id) if context.role else service.list()
 
 
 @router.post("", response_model=Document, status_code=status.HTTP_201_CREATED)
@@ -90,7 +91,7 @@ def get_document(document_id: str, service: Service, context: Context):
 @router.get("/{document_id}/original.pdf", response_class=Response)
 def original_pdf(document_id: str, context: Context, page: Annotated[int | None, Query(ge=1)] = None):
     check_document_access(document_id, context)
-    pdf = database.get_pdf(document_id)
+    pdf = document_store.get_pdf(document_id)
     if pdf is None:
         raise NotFoundError("PDF original not found.")
     filename = quote(pdf["filename"], safe="")
@@ -126,7 +127,7 @@ def delete_document(document_id: str, service: Service, context: OwnerEditor):
 
 @router.get("/{document_id}/access", response_model=Sharing)
 def get_sharing(document_id: str, context: OwnerEditor):
-    value = database.sharing(document_id, context.user_id)
+    value = document_store.sharing(document_id, context.user_id)
     if value is None:
         raise NotFoundError("Document access not found.")
     return value
@@ -134,7 +135,7 @@ def get_sharing(document_id: str, context: OwnerEditor):
 
 @router.patch("/{document_id}/access", response_model=Sharing)
 def set_sharing(document_id: str, payload: Sharing, context: OwnerEditor):
-    value = database.sharing(document_id, context.user_id, payload.shared)
+    value = document_store.sharing(document_id, context.user_id, payload.shared)
     if value is None:
         raise NotFoundError("Document access not found.")
     return value

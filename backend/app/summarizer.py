@@ -9,7 +9,7 @@ from openai import APITimeoutError, AsyncOpenAI, OpenAIError, RateLimitError
 from openai.types.responses import Response
 from pydantic import BaseModel, ValidationError
 
-from ingest import DEMO_CORPUS
+from backend.rag_index.ingest import DEMO_CORPUS
 
 from .config import timeout_seconds
 from .eval_budget import BudgetExceeded, EvalBudget

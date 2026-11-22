@@ -1,8 +1,22 @@
 import json
+from importlib import import_module
 
 import pytest
 
-import ingest
+from backend.rag_index import ingest, retrieve
+
+
+def test_legacy_imports_share_the_index_implementation():
+    assert import_module("ingest") is ingest
+    assert import_module("retrieve") is retrieve
+
+
+def test_bundled_corpus_resolves_a_published_chunk():
+    corpus = ingest.load_corpus()
+    chunk_id, text, metadata = next(ingest.chunk_document(corpus["python-testing"]))
+
+    assert chunk_id == "python-testing-000-8a24c1de5e3976821f7a"
+    assert retrieve.source_record(chunk_id, text, metadata, corpus)["source"] == "data/documents/python-testing.md"
 
 
 def test_chunk_size_changes_ids_without_changing_the_default():

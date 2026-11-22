@@ -6,7 +6,8 @@ from PIL import Image, ImageOps, UnidentifiedImageError
 from pydantic import BaseModel, Field, SecretStr, StringConstraints
 from starlette.concurrency import run_in_threadpool
 
-from .. import auth, member_profiles
+from .. import auth
+from ..storage import members as member_store
 from ..rate_limit import limit_expensive
 
 router = APIRouter(prefix="/profile", tags=["profile"])
@@ -36,17 +37,17 @@ class PasswordUpdate(BaseModel):
 @router.get("", response_model=Profile)
 def get_profile(member: ProfileMember, response: Response):
     response.headers["Cache-Control"] = "private, no-store"
-    return member_profiles.read(member.user_id)
+    return member_store.read(member.user_id)
 
 
 @router.patch("", response_model=Profile)
 def change_name(update: NameUpdate, member: ProfileMember):
-    return member_profiles.save_name(member.user_id, update.display_name)
+    return member_store.save_name(member.user_id, update.display_name)
 
 
 @router.get("/avatar")
 def get_avatar(member: ProfileMember):
-    return avatar_response(member_profiles.read_avatar(member.user_id))
+    return avatar_response(member_store.read_avatar(member.user_id))
 
 
 def avatar_response(image: bytes | None):
@@ -80,12 +81,12 @@ async def upload_avatar(request: Request, member: ProfileMember):
             raise HTTPException(413, "Размер фото должен быть не больше 2 МиБ.")
         content.extend(part)
     avatar = await run_in_threadpool(normalize_avatar, bytes(content))
-    return await run_in_threadpool(member_profiles.save_avatar, member.user_id, avatar)
+    return await run_in_threadpool(member_store.save_avatar, member.user_id, avatar)
 
 
 @router.delete("/avatar", response_model=Profile)
 def remove_avatar(member: ProfileMember):
-    return member_profiles.save_avatar(member.user_id, None)
+    return member_store.save_avatar(member.user_id, None)
 
 
 @router.put("/password", status_code=204)

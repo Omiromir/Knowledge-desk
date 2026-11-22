@@ -12,9 +12,10 @@ from docx import Document as WordDocument
 from pypdf import PdfReader, PdfWriter
 from pypdf.generic import DecodedStreamObject, DictionaryObject, NameObject
 
-from backend.app import database, document_files, pdf_ocr, rag, uploads
+from backend.app import document_files, pdf_ocr, rag, uploads
 from backend.app.domain import Document as CatalogDocument
-from ingest import Document, chunk_document, open_collection
+from backend.app.storage import documents as document_store
+from backend.rag_index.ingest import Document, chunk_document, open_collection
 
 
 @pytest.fixture
@@ -272,7 +273,7 @@ def test_index_failure_keeps_catalog_unchanged(client, local_index):
 
 def test_catalog_failure_discards_staged_vectors(client, local_index, monkeypatch):
     save = Mock(side_effect=OSError("catalog write failed"))
-    monkeypatch.setattr(database, "save_uploaded_document", save)
+    monkeypatch.setattr(document_store, "save_uploaded_document", save)
 
     response = client.post("/documents/upload?filename=mayak.txt", content=b"Test document")
 

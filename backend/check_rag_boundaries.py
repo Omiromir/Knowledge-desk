@@ -11,7 +11,7 @@ from unittest.mock import patch
 import httpx
 from fastapi.testclient import TestClient
 
-import ingest
+from backend.rag_index import ingest
 from .app import database, rag, uploads
 from .app.main import create_app
 

@@ -4,8 +4,8 @@ import json
 import os
 from math import isfinite
 
-from ingest import CHUNK_SIZES, DIMENSION, TARGET
-from retrieve import TOP_K
+from backend.rag_index.ingest import CHUNK_SIZES, DIMENSION, TARGET
+from backend.rag_index.retrieve import TOP_K
 
 from . import database
 

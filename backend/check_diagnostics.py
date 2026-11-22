@@ -14,7 +14,7 @@ import httpx
 from fastapi.testclient import TestClient
 from openai import AsyncOpenAI
 
-from ingest import ingest
+from backend.rag_index.ingest import ingest
 
 from backend.app import database, rag, summarizer, telemetry, tool_execution
 from backend.app.api import ai

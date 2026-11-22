@@ -4,7 +4,7 @@ import argparse
 import json
 from urllib.request import Request, urlopen
 
-from ingest import load_corpus
+from backend.rag_index.ingest import load_corpus
 
 
 def api_call(url, method="GET", payload=None):

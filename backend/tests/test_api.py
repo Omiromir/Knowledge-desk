@@ -7,6 +7,7 @@ import pytest
 
 from backend.app import database
 from backend.app.domain import RequestReply
+from backend.app.storage import documents as document_store, requests as request_store
 
 DOCUMENT = {
     "title": "Учебный документ",
@@ -75,7 +76,7 @@ def test_update_document_saves_changes(client, document):
     saved = client.get(f"/documents/{document['id']}")
     assert saved.status_code == 200
     assert saved.json() == expected
-    assert asdict(database.get_document(document["id"])) == expected
+    assert asdict(document_store.get_document(document["id"])) == expected
 
 
 def test_delete_document(client, document):
@@ -86,7 +87,7 @@ def test_delete_document(client, document):
     missing = client.get(f"/documents/{document['id']}")
     assert missing.status_code == 404
     assert missing.json() == {"detail": "Document not found."}
-    assert database.get_document(document["id"]) is None
+    assert document_store.get_document(document["id"]) is None
 
 
 @pytest.mark.parametrize("text", ["", "   ", "\n\t"])
@@ -209,7 +210,7 @@ def test_request_reply_rolls_back_when_closing_fails(client):
                BEGIN SELECT RAISE(ABORT, 'simulated write failure'); END"""
         )
     with pytest.raises(sqlite3.IntegrityError):
-        database.add_request_reply(created["id"], RequestReply(str(uuid4()), "Answer", "2026-11-09T00:00:00+00:00"))
+        request_store.add_request_reply(created["id"], RequestReply(str(uuid4()), "Answer", "2026-11-09T00:00:00+00:00"))
     assert client.get(f"/requests/{created['id']}").json() == created
 
 

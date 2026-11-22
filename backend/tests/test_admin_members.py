@@ -3,6 +3,7 @@ from uuid import uuid4
 
 from backend.app import admin_auth, auth, certificates, database
 from backend.app.api import admin
+from backend.app.storage import members as member_store
 
 
 def test_admin_routes_ignore_user_metadata_and_require_server_grant(client, monkeypatch):
@@ -32,7 +33,7 @@ def test_admin_routes_ignore_user_metadata_and_require_server_grant(client, monk
     for method, path, body in calls:
         assert client.request(method, path, json=body).status_code == 401
         assert client.request(method, path, json=body, headers={"Authorization": "Bearer editor"}).status_code == 403
-    assert database.member_permissions(uid) == ("editor", True)
+    assert member_store.member_permissions(uid) == ("editor", True)
 
 
 def test_admin_applies_separate_access_and_certificate_updates(client, monkeypatch):

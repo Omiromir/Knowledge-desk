@@ -11,7 +11,10 @@ router = APIRouter(tags=["health"])
 
 def database_ready() -> bool:
     with database.connect() as connection:
-        connection.execute("SELECT id FROM documents LIMIT 0")
+        if postgres.database_url():
+            database.check_postgres_schema(connection)
+        else:
+            connection.execute("SELECT id FROM documents LIMIT 0")
     return True
 
 

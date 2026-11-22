@@ -5,8 +5,8 @@ import json
 from pathlib import Path
 from struct import pack
 
-from ingest import CHUNK_SIZES, COLLECTION, DIMENSION, load_corpus, normalize, open_collection
-from retrieve import source_record
+from backend.rag_index.ingest import CHUNK_SIZES, COLLECTION, DIMENSION, load_corpus, normalize, open_collection
+from backend.rag_index.retrieve import source_record
 
 from .app import database, postgres, uploads, vector_index
 from .app.domain import Document
