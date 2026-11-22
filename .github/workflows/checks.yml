@@ -1,0 +1,75 @@
+name: Checks
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    name: Backend and security
+    runs-on: windows-2025
+    timeout-minutes: 30
+    env:
+      HF_HUB_OFFLINE: "1"
+      OPENAI_API_KEY: ""
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version-file: .python-version
+          cache: pip
+      - name: Install locked Python dependencies
+        run: |
+          python -m pip install --timeout 90 -r requirements.txt
+          python -m pip check
+      - name: API, unit and security tests
+        run: python -X utf8 -m pytest -q backend/tests tests/security --junitxml=output/ci/tests.xml
+      - name: Deterministic eval and manifest replay
+        if: success() || failure()
+        run: |
+          python -X utf8 -m backend.mock_eval --output output/ci/mock-eval.json
+          python -X utf8 -m backend.mock_eval --replay output/ci/mock-eval.json --output output/ci/mock-replay.json
+      - name: Upload test and eval reports
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: checks-${{ github.run_id }}-${{ github.run_attempt }}
+          path: output/ci/
+          if-no-files-found: warn
+          retention-days: 14
+
+  frontend:
+    name: Frontend build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: .node-version
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install locked Node dependencies
+        run: npm ci
+        working-directory: frontend
+      - name: Production build
+        run: npm run build
+        working-directory: frontend
+
+  gate:
+    name: Ready to merge
+    if: always()
+    needs: [backend, frontend]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require both checks
+        env:
+          BACKEND: ${{ needs.backend.result }}
+          FRONTEND: ${{ needs.frontend.result }}
+        run: test "$BACKEND" = success && test "$FRONTEND" = success

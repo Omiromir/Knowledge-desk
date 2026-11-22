@@ -1,0 +1,22 @@
+{
+  "n8n_version": "2.48.7",
+  "workflow_id": "kpM2prAUglS5hoig",
+  "mode": "test",
+  "delivery_status": "delivered",
+  "receipt": {
+    "status": "accepted",
+    "event_id": "346a97d8-75b2-4cce-9d90-e01ae035ccfe",
+    "request_id": "57bd551d-169a-4c8d-85e6-2af1a8a12ced",
+    "execution_id": "2"
+  },
+  "confirmed_at": "2026-11-20T17:19:22.438782+00:00",
+  "negative_checks": {
+    "wrong_secret": 403,
+    "invalid_event": 400
+  },
+  "requests_after_restart": 1,
+  "integration_rows_after_restart": 1,
+  "new_conversation_was_empty": true,
+  "workflow_execution_status": "success",
+  "manual_execution_soft_deleted_by_n8n": true
+}

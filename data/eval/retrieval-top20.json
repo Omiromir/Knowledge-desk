@@ -1,0 +1,1290 @@
+{
+  "index": {
+    "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+    "model": "intfloat/multilingual-e5-small",
+    "dimension": 384,
+    "chunking": "paragraph-word-v1:600:50",
+    "metric": "cosine",
+    "chromadb": "1.5.5",
+    "chunk_ids_sha256": "8e953e25c9318b0fa225bce35af435df69ab9b4f29e2eb497d9be2a159ce90a2"
+  },
+  "settings": {
+    "top_k": 5,
+    "max_cosine_distance": 0.18,
+    "max_output_tokens": 512,
+    "provider_timeout_seconds": 15,
+    "provider_retries": 0
+  },
+  "cases": [
+    {
+      "id": "R02",
+      "question": "В какие дни и во сколько встречается вечерняя группа Python для новичков?",
+      "expected_doc_ids": [
+        "python-evening"
+      ],
+      "expected_source_ranks": [
+        [
+          1,
+          "python-evening",
+          0.0848,
+          "python-evening-000-8db79fc34520eadfb7c7"
+        ]
+      ],
+      "top_20": [
+        {
+          "chunk_id": "python-evening-000-8db79fc34520eadfb7c7",
+          "doc_id": "python-evening",
+          "start": 0,
+          "end": 576,
+          "distance": 0.08476483821868896
+        },
+        {
+          "chunk_id": "testing-schedule-000-b440b505e6c0c7e76d08",
+          "doc_id": "testing-schedule",
+          "start": 0,
+          "end": 601,
+          "distance": 0.12333238124847412
+        },
+        {
+          "chunk_id": "python-start-000-932cfffa480a2f6aa436",
+          "doc_id": "python-start",
+          "start": 0,
+          "end": 569,
+          "distance": 0.13382524251937866
+        },
+        {
+          "chunk_id": "python-testing-000-61828329046f2cbe4473",
+          "doc_id": "python-testing",
+          "start": 0,
+          "end": 504,
+          "distance": 0.1485782265663147
+        },
+        {
+          "chunk_id": "analytics-weekend-000-40fa9c558efe6a51f9c4",
+          "doc_id": "analytics-weekend",
+          "start": 0,
+          "end": 605,
+          "distance": 0.15811491012573242
+        },
+        {
+          "chunk_id": "data-analysis-000-030cf85943530dac0f88",
+          "doc_id": "data-analysis",
+          "start": 0,
+          "end": 639,
+          "distance": 0.16030371189117432
+        },
+        {
+          "chunk_id": "group-enrollment-000-cb0a56aea5c1803e7754",
+          "doc_id": "group-enrollment",
+          "start": 0,
+          "end": 594,
+          "distance": 0.18101024627685547
+        },
+        {
+          "chunk_id": "payment-terms-000-bc853051fdd145ccabc8",
+          "doc_id": "payment-terms",
+          "start": 0,
+          "end": 600,
+          "distance": 0.18169480562210083
+        },
+        {
+          "chunk_id": "lesson-recordings-000-ba88940b3156a67e9a65",
+          "doc_id": "lesson-recordings",
+          "start": 0,
+          "end": 583,
+          "distance": 0.18211805820465088
+        },
+        {
+          "chunk_id": "holiday-calendar-000-9c98e0839f1cbf0416ec",
+          "doc_id": "holiday-calendar",
+          "start": 0,
+          "end": 573,
+          "distance": 0.1859757900238037
+        },
+        {
+          "chunk_id": "web-development-000-44a44279fe17a28187e6",
+          "doc_id": "web-development",
+          "start": 0,
+          "end": 646,
+          "distance": 0.18918222188949585
+        },
+        {
+          "chunk_id": "group-transfer-000-4981861e63263876d869",
+          "doc_id": "group-transfer",
+          "start": 0,
+          "end": 575,
+          "distance": 0.19451802968978882
+        },
+        {
+          "chunk_id": "python-testing-001-9b09ab6b43f093c7fae4",
+          "doc_id": "python-testing",
+          "start": 456,
+          "end": 709,
+          "distance": 0.19608420133590698
+        },
+        {
+          "chunk_id": "platform-access-000-48ca5012fc11e268eca3",
+          "doc_id": "platform-access",
+          "start": 0,
+          "end": 596,
+          "distance": 0.1994260549545288
+        },
+        {
+          "chunk_id": "intro-enrollment-000-348a38b860ee41db57b4",
+          "doc_id": "intro-enrollment",
+          "start": 0,
+          "end": 605,
+          "distance": 0.20445680618286133
+        },
+        {
+          "chunk_id": "consult-tutor-000-4f603734e90755ab8ee1",
+          "doc_id": "consult-tutor",
+          "start": 0,
+          "end": 630,
+          "distance": 0.20448380708694458
+        },
+        {
+          "chunk_id": "consult-course-choice-000-26541a8f53057f8959e0",
+          "doc_id": "consult-course-choice",
+          "start": 0,
+          "end": 598,
+          "distance": 0.20489084720611572
+        },
+        {
+          "chunk_id": "consult-reschedule-000-ac160d7233af284d377c",
+          "doc_id": "consult-reschedule",
+          "start": 0,
+          "end": 576,
+          "distance": 0.20710450410842896
+        },
+        {
+          "chunk_id": "consult-course-choice-001-4a25bf9cc72b2e995add",
+          "doc_id": "consult-course-choice",
+          "start": 550,
+          "end": 681,
+          "distance": 0.21216541528701782
+        },
+        {
+          "chunk_id": "homework-feedback-000-4ffef20c6c9bf4960b5e",
+          "doc_id": "homework-feedback",
+          "start": 0,
+          "end": 587,
+          "distance": 0.21299326419830322
+        }
+      ]
+    },
+    {
+      "id": "R03",
+      "question": "Можно ли сначала бесплатно попробовать занятие? Сколько оно длится?",
+      "expected_doc_ids": [
+        "intro-enrollment"
+      ],
+      "expected_source_ranks": [
+        [
+          1,
+          "intro-enrollment",
+          0.133,
+          "intro-enrollment-000-348a38b860ee41db57b4"
+        ]
+      ],
+      "top_20": [
+        {
+          "chunk_id": "intro-enrollment-000-348a38b860ee41db57b4",
+          "doc_id": "intro-enrollment",
+          "start": 0,
+          "end": 605,
+          "distance": 0.13301116228103638
+        },
+        {
+          "chunk_id": "lesson-recordings-000-ba88940b3156a67e9a65",
+          "doc_id": "lesson-recordings",
+          "start": 0,
+          "end": 583,
+          "distance": 0.15769976377487183
+        },
+        {
+          "chunk_id": "consult-course-choice-001-4a25bf9cc72b2e995add",
+          "doc_id": "consult-course-choice",
+          "start": 550,
+          "end": 681,
+          "distance": 0.1624056100845337
+        },
+        {
+          "chunk_id": "python-start-000-932cfffa480a2f6aa436",
+          "doc_id": "python-start",
+          "start": 0,
+          "end": 569,
+          "distance": 0.16470646858215332
+        },
+        {
+          "chunk_id": "payment-terms-000-bc853051fdd145ccabc8",
+          "doc_id": "payment-terms",
+          "start": 0,
+          "end": 600,
+          "distance": 0.16946744918823242
+        },
+        {
+          "chunk_id": "python-start-001-4a25fb50848f25204b33",
+          "doc_id": "python-start",
+          "start": 526,
+          "end": 771,
+          "distance": 0.17028510570526123
+        },
+        {
+          "chunk_id": "holiday-calendar-000-9c98e0839f1cbf0416ec",
+          "doc_id": "holiday-calendar",
+          "start": 0,
+          "end": 573,
+          "distance": 0.17154455184936523
+        },
+        {
+          "chunk_id": "group-enrollment-001-8317644bb0a3228697ae",
+          "doc_id": "group-enrollment",
+          "start": 546,
+          "end": 667,
+          "distance": 0.17289131879806519
+        },
+        {
+          "chunk_id": "web-development-000-44a44279fe17a28187e6",
+          "doc_id": "web-development",
+          "start": 0,
+          "end": 646,
+          "distance": 0.17615532875061035
+        },
+        {
+          "chunk_id": "consult-course-choice-000-26541a8f53057f8959e0",
+          "doc_id": "consult-course-choice",
+          "start": 0,
+          "end": 598,
+          "distance": 0.17658352851867676
+        },
+        {
+          "chunk_id": "homework-feedback-000-4ffef20c6c9bf4960b5e",
+          "doc_id": "homework-feedback",
+          "start": 0,
+          "end": 587,
+          "distance": 0.17677605152130127
+        },
+        {
+          "chunk_id": "group-enrollment-000-cb0a56aea5c1803e7754",
+          "doc_id": "group-enrollment",
+          "start": 0,
+          "end": 594,
+          "distance": 0.1775248646736145
+        },
+        {
+          "chunk_id": "platform-access-001-c5f1559c6dc1b52fc144",
+          "doc_id": "platform-access",
+          "start": 549,
+          "end": 657,
+          "distance": 0.17880630493164062
+        },
+        {
+          "chunk_id": "group-transfer-000-4981861e63263876d869",
+          "doc_id": "group-transfer",
+          "start": 0,
+          "end": 575,
+          "distance": 0.17967700958251953
+        },
+        {
+          "chunk_id": "consult-reschedule-000-ac160d7233af284d377c",
+          "doc_id": "consult-reschedule",
+          "start": 0,
+          "end": 576,
+          "distance": 0.18125438690185547
+        },
+        {
+          "chunk_id": "consult-career-000-8ce16ddd7efe826cf32a",
+          "doc_id": "consult-career",
+          "start": 0,
+          "end": 606,
+          "distance": 0.18353629112243652
+        },
+        {
+          "chunk_id": "python-testing-001-9b09ab6b43f093c7fae4",
+          "doc_id": "python-testing",
+          "start": 456,
+          "end": 709,
+          "distance": 0.1842913031578064
+        },
+        {
+          "chunk_id": "python-testing-000-61828329046f2cbe4473",
+          "doc_id": "python-testing",
+          "start": 0,
+          "end": 504,
+          "distance": 0.18506532907485962
+        },
+        {
+          "chunk_id": "platform-access-000-48ca5012fc11e268eca3",
+          "doc_id": "platform-access",
+          "start": 0,
+          "end": 596,
+          "distance": 0.18513822555541992
+        },
+        {
+          "chunk_id": "consult-tutor-000-4f603734e90755ab8ee1",
+          "doc_id": "consult-tutor",
+          "start": 0,
+          "end": 630,
+          "distance": 0.18612170219421387
+        }
+      ]
+    },
+    {
+      "id": "R06",
+      "question": "Могу ли я обсудить портфолио после завершения только одного курса и сколько длится встреча?",
+      "expected_doc_ids": [
+        "consult-career"
+      ],
+      "expected_source_ranks": [
+        [
+          2,
+          "consult-career",
+          0.1367,
+          "consult-career-000-8ce16ddd7efe826cf32a"
+        ]
+      ],
+      "top_20": [
+        {
+          "chunk_id": "consult-course-choice-001-4a25bf9cc72b2e995add",
+          "doc_id": "consult-course-choice",
+          "start": 550,
+          "end": 681,
+          "distance": 0.13462984561920166
+        },
+        {
+          "chunk_id": "consult-career-000-8ce16ddd7efe826cf32a",
+          "doc_id": "consult-career",
+          "start": 0,
+          "end": 606,
+          "distance": 0.13674205541610718
+        },
+        {
+          "chunk_id": "lesson-recordings-000-ba88940b3156a67e9a65",
+          "doc_id": "lesson-recordings",
+          "start": 0,
+          "end": 583,
+          "distance": 0.13697904348373413
+        },
+        {
+          "chunk_id": "consult-tutor-000-4f603734e90755ab8ee1",
+          "doc_id": "consult-tutor",
+          "start": 0,
+          "end": 630,
+          "distance": 0.13872110843658447
+        },
+        {
+          "chunk_id": "consult-course-choice-000-26541a8f53057f8959e0",
+          "doc_id": "consult-course-choice",
+          "start": 0,
+          "end": 598,
+          "distance": 0.1499364972114563
+        },
+        {
+          "chunk_id": "consult-reschedule-000-ac160d7233af284d377c",
+          "doc_id": "consult-reschedule",
+          "start": 0,
+          "end": 576,
+          "distance": 0.15770494937896729
+        },
+        {
+          "chunk_id": "platform-access-000-48ca5012fc11e268eca3",
+          "doc_id": "platform-access",
+          "start": 0,
+          "end": 596,
+          "distance": 0.16260802745819092
+        },
+        {
+          "chunk_id": "group-enrollment-000-cb0a56aea5c1803e7754",
+          "doc_id": "group-enrollment",
+          "start": 0,
+          "end": 594,
+          "distance": 0.1690102219581604
+        },
+        {
+          "chunk_id": "group-transfer-000-4981861e63263876d869",
+          "doc_id": "group-transfer",
+          "start": 0,
+          "end": 575,
+          "distance": 0.16998720169067383
+        },
+        {
+          "chunk_id": "homework-feedback-000-4ffef20c6c9bf4960b5e",
+          "doc_id": "homework-feedback",
+          "start": 0,
+          "end": 587,
+          "distance": 0.17356067895889282
+        },
+        {
+          "chunk_id": "analytics-weekend-000-40fa9c558efe6a51f9c4",
+          "doc_id": "analytics-weekend",
+          "start": 0,
+          "end": 605,
+          "distance": 0.1769171953201294
+        },
+        {
+          "chunk_id": "python-evening-000-8db79fc34520eadfb7c7",
+          "doc_id": "python-evening",
+          "start": 0,
+          "end": 576,
+          "distance": 0.17801856994628906
+        },
+        {
+          "chunk_id": "platform-access-001-c5f1559c6dc1b52fc144",
+          "doc_id": "platform-access",
+          "start": 549,
+          "end": 657,
+          "distance": 0.17915678024291992
+        },
+        {
+          "chunk_id": "intro-enrollment-000-348a38b860ee41db57b4",
+          "doc_id": "intro-enrollment",
+          "start": 0,
+          "end": 605,
+          "distance": 0.1793699860572815
+        },
+        {
+          "chunk_id": "holiday-calendar-000-9c98e0839f1cbf0416ec",
+          "doc_id": "holiday-calendar",
+          "start": 0,
+          "end": 573,
+          "distance": 0.17956596612930298
+        },
+        {
+          "chunk_id": "data-analysis-000-030cf85943530dac0f88",
+          "doc_id": "data-analysis",
+          "start": 0,
+          "end": 639,
+          "distance": 0.184370756149292
+        },
+        {
+          "chunk_id": "testing-schedule-000-b440b505e6c0c7e76d08",
+          "doc_id": "testing-schedule",
+          "start": 0,
+          "end": 601,
+          "distance": 0.18492496013641357
+        },
+        {
+          "chunk_id": "completion-certificate-000-5b2b3799817153214de3",
+          "doc_id": "completion-certificate",
+          "start": 0,
+          "end": 576,
+          "distance": 0.18617326021194458
+        },
+        {
+          "chunk_id": "python-start-001-4a25fb50848f25204b33",
+          "doc_id": "python-start",
+          "start": 526,
+          "end": 771,
+          "distance": 0.18790829181671143
+        },
+        {
+          "chunk_id": "python-testing-000-61828329046f2cbe4473",
+          "doc_id": "python-testing",
+          "start": 0,
+          "end": 504,
+          "distance": 0.1930052638053894
+        }
+      ]
+    },
+    {
+      "id": "R07",
+      "question": "Записался на личный созвон, но осталось меньше половины суток. Что будет, если попрошу сдвинуть время?",
+      "expected_doc_ids": [
+        "consult-reschedule"
+      ],
+      "expected_source_ranks": [
+        [
+          3,
+          "consult-reschedule",
+          0.1462,
+          "consult-reschedule-000-ac160d7233af284d377c"
+        ]
+      ],
+      "top_20": [
+        {
+          "chunk_id": "platform-access-001-c5f1559c6dc1b52fc144",
+          "doc_id": "platform-access",
+          "start": 549,
+          "end": 657,
+          "distance": 0.11975371837615967
+        },
+        {
+          "chunk_id": "consult-course-choice-001-4a25bf9cc72b2e995add",
+          "doc_id": "consult-course-choice",
+          "start": 550,
+          "end": 681,
+          "distance": 0.14589107036590576
+        },
+        {
+          "chunk_id": "consult-reschedule-000-ac160d7233af284d377c",
+          "doc_id": "consult-reschedule",
+          "start": 0,
+          "end": 576,
+          "distance": 0.1462421417236328
+        },
+        {
+          "chunk_id": "consult-course-choice-000-26541a8f53057f8959e0",
+          "doc_id": "consult-course-choice",
+          "start": 0,
+          "end": 598,
+          "distance": 0.15156155824661255
+        },
+        {
+          "chunk_id": "group-transfer-000-4981861e63263876d869",
+          "doc_id": "group-transfer",
+          "start": 0,
+          "end": 575,
+          "distance": 0.15411901473999023
+        },
+        {
+          "chunk_id": "platform-access-000-48ca5012fc11e268eca3",
+          "doc_id": "platform-access",
+          "start": 0,
+          "end": 596,
+          "distance": 0.15814155340194702
+        },
+        {
+          "chunk_id": "homework-feedback-000-4ffef20c6c9bf4960b5e",
+          "doc_id": "homework-feedback",
+          "start": 0,
+          "end": 587,
+          "distance": 0.15970540046691895
+        },
+        {
+          "chunk_id": "lesson-recordings-000-ba88940b3156a67e9a65",
+          "doc_id": "lesson-recordings",
+          "start": 0,
+          "end": 583,
+          "distance": 0.16331422328948975
+        },
+        {
+          "chunk_id": "intro-enrollment-000-348a38b860ee41db57b4",
+          "doc_id": "intro-enrollment",
+          "start": 0,
+          "end": 605,
+          "distance": 0.16506266593933105
+        },
+        {
+          "chunk_id": "analytics-weekend-000-40fa9c558efe6a51f9c4",
+          "doc_id": "analytics-weekend",
+          "start": 0,
+          "end": 605,
+          "distance": 0.16796225309371948
+        },
+        {
+          "chunk_id": "testing-schedule-000-b440b505e6c0c7e76d08",
+          "doc_id": "testing-schedule",
+          "start": 0,
+          "end": 601,
+          "distance": 0.16899776458740234
+        },
+        {
+          "chunk_id": "python-evening-000-8db79fc34520eadfb7c7",
+          "doc_id": "python-evening",
+          "start": 0,
+          "end": 576,
+          "distance": 0.16938602924346924
+        },
+        {
+          "chunk_id": "holiday-calendar-000-9c98e0839f1cbf0416ec",
+          "doc_id": "holiday-calendar",
+          "start": 0,
+          "end": 573,
+          "distance": 0.1747753620147705
+        },
+        {
+          "chunk_id": "consult-tutor-000-4f603734e90755ab8ee1",
+          "doc_id": "consult-tutor",
+          "start": 0,
+          "end": 630,
+          "distance": 0.17530572414398193
+        },
+        {
+          "chunk_id": "consult-career-000-8ce16ddd7efe826cf32a",
+          "doc_id": "consult-career",
+          "start": 0,
+          "end": 606,
+          "distance": 0.1767086386680603
+        },
+        {
+          "chunk_id": "python-testing-001-9b09ab6b43f093c7fae4",
+          "doc_id": "python-testing",
+          "start": 456,
+          "end": 709,
+          "distance": 0.1816667914390564
+        },
+        {
+          "chunk_id": "group-enrollment-001-8317644bb0a3228697ae",
+          "doc_id": "group-enrollment",
+          "start": 546,
+          "end": 667,
+          "distance": 0.1837230920791626
+        },
+        {
+          "chunk_id": "group-enrollment-000-cb0a56aea5c1803e7754",
+          "doc_id": "group-enrollment",
+          "start": 0,
+          "end": 594,
+          "distance": 0.18487900495529175
+        },
+        {
+          "chunk_id": "completion-certificate-000-5b2b3799817153214de3",
+          "doc_id": "completion-certificate",
+          "start": 0,
+          "end": 576,
+          "distance": 0.1867285966873169
+        },
+        {
+          "chunk_id": "python-testing-000-61828329046f2cbe4473",
+          "doc_id": "python-testing",
+          "start": 0,
+          "end": 504,
+          "distance": 0.19220376014709473
+        }
+      ]
+    },
+    {
+      "id": "R10",
+      "question": "Какую долю обязательных работ нужно сдать для сертификата, если смотрю занятия в записи?",
+      "expected_doc_ids": [
+        "completion-certificate"
+      ],
+      "expected_source_ranks": [
+        [
+          1,
+          "completion-certificate",
+          0.1158,
+          "completion-certificate-000-5b2b3799817153214de3"
+        ]
+      ],
+      "top_20": [
+        {
+          "chunk_id": "completion-certificate-000-5b2b3799817153214de3",
+          "doc_id": "completion-certificate",
+          "start": 0,
+          "end": 576,
+          "distance": 0.11578112840652466
+        },
+        {
+          "chunk_id": "lesson-recordings-000-ba88940b3156a67e9a65",
+          "doc_id": "lesson-recordings",
+          "start": 0,
+          "end": 583,
+          "distance": 0.1585078239440918
+        },
+        {
+          "chunk_id": "intro-enrollment-000-348a38b860ee41db57b4",
+          "doc_id": "intro-enrollment",
+          "start": 0,
+          "end": 605,
+          "distance": 0.1588703989982605
+        },
+        {
+          "chunk_id": "group-enrollment-000-cb0a56aea5c1803e7754",
+          "doc_id": "group-enrollment",
+          "start": 0,
+          "end": 594,
+          "distance": 0.16512691974639893
+        },
+        {
+          "chunk_id": "homework-feedback-000-4ffef20c6c9bf4960b5e",
+          "doc_id": "homework-feedback",
+          "start": 0,
+          "end": 587,
+          "distance": 0.16687500476837158
+        },
+        {
+          "chunk_id": "platform-access-000-48ca5012fc11e268eca3",
+          "doc_id": "platform-access",
+          "start": 0,
+          "end": 596,
+          "distance": 0.17119711637496948
+        },
+        {
+          "chunk_id": "platform-access-001-c5f1559c6dc1b52fc144",
+          "doc_id": "platform-access",
+          "start": 549,
+          "end": 657,
+          "distance": 0.17301982641220093
+        },
+        {
+          "chunk_id": "holiday-calendar-000-9c98e0839f1cbf0416ec",
+          "doc_id": "holiday-calendar",
+          "start": 0,
+          "end": 573,
+          "distance": 0.18089348077774048
+        },
+        {
+          "chunk_id": "consult-course-choice-001-4a25bf9cc72b2e995add",
+          "doc_id": "consult-course-choice",
+          "start": 550,
+          "end": 681,
+          "distance": 0.18188899755477905
+        },
+        {
+          "chunk_id": "payment-terms-000-bc853051fdd145ccabc8",
+          "doc_id": "payment-terms",
+          "start": 0,
+          "end": 600,
+          "distance": 0.18227523565292358
+        },
+        {
+          "chunk_id": "python-testing-001-9b09ab6b43f093c7fae4",
+          "doc_id": "python-testing",
+          "start": 456,
+          "end": 709,
+          "distance": 0.1823626160621643
+        },
+        {
+          "chunk_id": "group-transfer-000-4981861e63263876d869",
+          "doc_id": "group-transfer",
+          "start": 0,
+          "end": 575,
+          "distance": 0.18637806177139282
+        },
+        {
+          "chunk_id": "web-development-000-44a44279fe17a28187e6",
+          "doc_id": "web-development",
+          "start": 0,
+          "end": 646,
+          "distance": 0.188504159450531
+        },
+        {
+          "chunk_id": "consult-course-choice-000-26541a8f53057f8959e0",
+          "doc_id": "consult-course-choice",
+          "start": 0,
+          "end": 598,
+          "distance": 0.19115221500396729
+        },
+        {
+          "chunk_id": "analytics-weekend-000-40fa9c558efe6a51f9c4",
+          "doc_id": "analytics-weekend",
+          "start": 0,
+          "end": 605,
+          "distance": 0.19207477569580078
+        },
+        {
+          "chunk_id": "consult-tutor-000-4f603734e90755ab8ee1",
+          "doc_id": "consult-tutor",
+          "start": 0,
+          "end": 630,
+          "distance": 0.19473350048065186
+        },
+        {
+          "chunk_id": "python-start-001-4a25fb50848f25204b33",
+          "doc_id": "python-start",
+          "start": 526,
+          "end": 771,
+          "distance": 0.19641250371932983
+        },
+        {
+          "chunk_id": "python-start-000-932cfffa480a2f6aa436",
+          "doc_id": "python-start",
+          "start": 0,
+          "end": 569,
+          "distance": 0.19677305221557617
+        },
+        {
+          "chunk_id": "group-enrollment-001-8317644bb0a3228697ae",
+          "doc_id": "group-enrollment",
+          "start": 546,
+          "end": 667,
+          "distance": 0.19846689701080322
+        },
+        {
+          "chunk_id": "consult-career-000-8ce16ddd7efe826cf32a",
+          "doc_id": "consult-career",
+          "start": 0,
+          "end": 606,
+          "distance": 0.1992822289466858
+        }
+      ]
+    },
+    {
+      "id": "R12",
+      "question": "Когда начинается занятие по аналитике в субботу и сколько стоит этот курс?",
+      "expected_doc_ids": [
+        "analytics-weekend",
+        "payment-terms"
+      ],
+      "expected_source_ranks": [
+        [
+          1,
+          "analytics-weekend",
+          0.1246,
+          "analytics-weekend-000-40fa9c558efe6a51f9c4"
+        ],
+        [
+          4,
+          "payment-terms",
+          0.1661,
+          "payment-terms-000-bc853051fdd145ccabc8"
+        ]
+      ],
+      "top_20": [
+        {
+          "chunk_id": "analytics-weekend-000-40fa9c558efe6a51f9c4",
+          "doc_id": "analytics-weekend",
+          "start": 0,
+          "end": 605,
+          "distance": 0.12461060285568237
+        },
+        {
+          "chunk_id": "data-analysis-000-030cf85943530dac0f88",
+          "doc_id": "data-analysis",
+          "start": 0,
+          "end": 639,
+          "distance": 0.13444817066192627
+        },
+        {
+          "chunk_id": "python-evening-000-8db79fc34520eadfb7c7",
+          "doc_id": "python-evening",
+          "start": 0,
+          "end": 576,
+          "distance": 0.1608182191848755
+        },
+        {
+          "chunk_id": "payment-terms-000-bc853051fdd145ccabc8",
+          "doc_id": "payment-terms",
+          "start": 0,
+          "end": 600,
+          "distance": 0.1661282777786255
+        },
+        {
+          "chunk_id": "consult-course-choice-000-26541a8f53057f8959e0",
+          "doc_id": "consult-course-choice",
+          "start": 0,
+          "end": 598,
+          "distance": 0.17119371891021729
+        },
+        {
+          "chunk_id": "testing-schedule-000-b440b505e6c0c7e76d08",
+          "doc_id": "testing-schedule",
+          "start": 0,
+          "end": 601,
+          "distance": 0.17320573329925537
+        },
+        {
+          "chunk_id": "lesson-recordings-000-ba88940b3156a67e9a65",
+          "doc_id": "lesson-recordings",
+          "start": 0,
+          "end": 583,
+          "distance": 0.1780286431312561
+        },
+        {
+          "chunk_id": "group-enrollment-001-8317644bb0a3228697ae",
+          "doc_id": "group-enrollment",
+          "start": 546,
+          "end": 667,
+          "distance": 0.17888283729553223
+        },
+        {
+          "chunk_id": "python-start-000-932cfffa480a2f6aa436",
+          "doc_id": "python-start",
+          "start": 0,
+          "end": 569,
+          "distance": 0.18014204502105713
+        },
+        {
+          "chunk_id": "python-start-001-4a25fb50848f25204b33",
+          "doc_id": "python-start",
+          "start": 526,
+          "end": 771,
+          "distance": 0.18185746669769287
+        },
+        {
+          "chunk_id": "consult-course-choice-001-4a25bf9cc72b2e995add",
+          "doc_id": "consult-course-choice",
+          "start": 550,
+          "end": 681,
+          "distance": 0.18221509456634521
+        },
+        {
+          "chunk_id": "group-enrollment-000-cb0a56aea5c1803e7754",
+          "doc_id": "group-enrollment",
+          "start": 0,
+          "end": 594,
+          "distance": 0.18303769826889038
+        },
+        {
+          "chunk_id": "python-testing-000-61828329046f2cbe4473",
+          "doc_id": "python-testing",
+          "start": 0,
+          "end": 504,
+          "distance": 0.18323171138763428
+        },
+        {
+          "chunk_id": "intro-enrollment-000-348a38b860ee41db57b4",
+          "doc_id": "intro-enrollment",
+          "start": 0,
+          "end": 605,
+          "distance": 0.18745017051696777
+        },
+        {
+          "chunk_id": "web-development-000-44a44279fe17a28187e6",
+          "doc_id": "web-development",
+          "start": 0,
+          "end": 646,
+          "distance": 0.1891324520111084
+        },
+        {
+          "chunk_id": "consult-career-000-8ce16ddd7efe826cf32a",
+          "doc_id": "consult-career",
+          "start": 0,
+          "end": 606,
+          "distance": 0.18926501274108887
+        },
+        {
+          "chunk_id": "homework-feedback-000-4ffef20c6c9bf4960b5e",
+          "doc_id": "homework-feedback",
+          "start": 0,
+          "end": 587,
+          "distance": 0.19380629062652588
+        },
+        {
+          "chunk_id": "consult-tutor-000-4f603734e90755ab8ee1",
+          "doc_id": "consult-tutor",
+          "start": 0,
+          "end": 630,
+          "distance": 0.19385838508605957
+        },
+        {
+          "chunk_id": "group-transfer-000-4981861e63263876d869",
+          "doc_id": "group-transfer",
+          "start": 0,
+          "end": 575,
+          "distance": 0.19618141651153564
+        },
+        {
+          "chunk_id": "python-testing-001-9b09ab6b43f093c7fae4",
+          "doc_id": "python-testing",
+          "start": 456,
+          "end": 709,
+          "distance": 0.19629859924316406
+        }
+      ]
+    },
+    {
+      "id": "R13",
+      "question": "Сколько минут даётся на консультацию с преподавателем и что подготовить?",
+      "expected_doc_ids": [
+        "consult-tutor"
+      ],
+      "expected_source_ranks": [
+        [
+          1,
+          "consult-tutor",
+          0.0751,
+          "consult-tutor-000-4f603734e90755ab8ee1"
+        ]
+      ],
+      "top_20": [
+        {
+          "chunk_id": "consult-tutor-000-4f603734e90755ab8ee1",
+          "doc_id": "consult-tutor",
+          "start": 0,
+          "end": 630,
+          "distance": 0.07511550188064575
+        },
+        {
+          "chunk_id": "consult-career-000-8ce16ddd7efe826cf32a",
+          "doc_id": "consult-career",
+          "start": 0,
+          "end": 606,
+          "distance": 0.11876261234283447
+        },
+        {
+          "chunk_id": "consult-course-choice-000-26541a8f53057f8959e0",
+          "doc_id": "consult-course-choice",
+          "start": 0,
+          "end": 598,
+          "distance": 0.12355899810791016
+        },
+        {
+          "chunk_id": "consult-reschedule-000-ac160d7233af284d377c",
+          "doc_id": "consult-reschedule",
+          "start": 0,
+          "end": 576,
+          "distance": 0.14711213111877441
+        },
+        {
+          "chunk_id": "lesson-recordings-000-ba88940b3156a67e9a65",
+          "doc_id": "lesson-recordings",
+          "start": 0,
+          "end": 583,
+          "distance": 0.15461456775665283
+        },
+        {
+          "chunk_id": "group-enrollment-000-cb0a56aea5c1803e7754",
+          "doc_id": "group-enrollment",
+          "start": 0,
+          "end": 594,
+          "distance": 0.16340214014053345
+        },
+        {
+          "chunk_id": "testing-schedule-000-b440b505e6c0c7e76d08",
+          "doc_id": "testing-schedule",
+          "start": 0,
+          "end": 601,
+          "distance": 0.17065972089767456
+        },
+        {
+          "chunk_id": "intro-enrollment-000-348a38b860ee41db57b4",
+          "doc_id": "intro-enrollment",
+          "start": 0,
+          "end": 605,
+          "distance": 0.17220652103424072
+        },
+        {
+          "chunk_id": "consult-course-choice-001-4a25bf9cc72b2e995add",
+          "doc_id": "consult-course-choice",
+          "start": 550,
+          "end": 681,
+          "distance": 0.1770896315574646
+        },
+        {
+          "chunk_id": "platform-access-000-48ca5012fc11e268eca3",
+          "doc_id": "platform-access",
+          "start": 0,
+          "end": 596,
+          "distance": 0.1795952320098877
+        },
+        {
+          "chunk_id": "python-evening-000-8db79fc34520eadfb7c7",
+          "doc_id": "python-evening",
+          "start": 0,
+          "end": 576,
+          "distance": 0.1835993528366089
+        },
+        {
+          "chunk_id": "analytics-weekend-000-40fa9c558efe6a51f9c4",
+          "doc_id": "analytics-weekend",
+          "start": 0,
+          "end": 605,
+          "distance": 0.1844387650489807
+        },
+        {
+          "chunk_id": "holiday-calendar-000-9c98e0839f1cbf0416ec",
+          "doc_id": "holiday-calendar",
+          "start": 0,
+          "end": 573,
+          "distance": 0.1882866621017456
+        },
+        {
+          "chunk_id": "python-start-000-932cfffa480a2f6aa436",
+          "doc_id": "python-start",
+          "start": 0,
+          "end": 569,
+          "distance": 0.18887859582901
+        },
+        {
+          "chunk_id": "homework-feedback-000-4ffef20c6c9bf4960b5e",
+          "doc_id": "homework-feedback",
+          "start": 0,
+          "end": 587,
+          "distance": 0.19037598371505737
+        },
+        {
+          "chunk_id": "web-development-000-44a44279fe17a28187e6",
+          "doc_id": "web-development",
+          "start": 0,
+          "end": 646,
+          "distance": 0.19131863117218018
+        },
+        {
+          "chunk_id": "group-transfer-000-4981861e63263876d869",
+          "doc_id": "group-transfer",
+          "start": 0,
+          "end": 575,
+          "distance": 0.19332563877105713
+        },
+        {
+          "chunk_id": "data-analysis-000-030cf85943530dac0f88",
+          "doc_id": "data-analysis",
+          "start": 0,
+          "end": 639,
+          "distance": 0.19388598203659058
+        },
+        {
+          "chunk_id": "python-testing-000-61828329046f2cbe4473",
+          "doc_id": "python-testing",
+          "start": 0,
+          "end": 504,
+          "distance": 0.19574862718582153
+        },
+        {
+          "chunk_id": "python-testing-001-9b09ab6b43f093c7fae4",
+          "doc_id": "python-testing",
+          "start": 456,
+          "end": 709,
+          "distance": 0.200239896774292
+        }
+      ]
+    },
+    {
+      "id": "R15",
+      "question": "Как долго доступна запись урока и когда появится электронный сертификат после принятия итоговой работы?",
+      "expected_doc_ids": [
+        "lesson-recordings",
+        "completion-certificate"
+      ],
+      "expected_source_ranks": [
+        [
+          1,
+          "completion-certificate",
+          0.0977,
+          "completion-certificate-000-5b2b3799817153214de3"
+        ],
+        [
+          3,
+          "lesson-recordings",
+          0.1494,
+          "lesson-recordings-000-ba88940b3156a67e9a65"
+        ]
+      ],
+      "top_20": [
+        {
+          "chunk_id": "completion-certificate-000-5b2b3799817153214de3",
+          "doc_id": "completion-certificate",
+          "start": 0,
+          "end": 576,
+          "distance": 0.0976792573928833
+        },
+        {
+          "chunk_id": "platform-access-000-48ca5012fc11e268eca3",
+          "doc_id": "platform-access",
+          "start": 0,
+          "end": 596,
+          "distance": 0.12744545936584473
+        },
+        {
+          "chunk_id": "lesson-recordings-000-ba88940b3156a67e9a65",
+          "doc_id": "lesson-recordings",
+          "start": 0,
+          "end": 583,
+          "distance": 0.14936840534210205
+        },
+        {
+          "chunk_id": "consult-tutor-000-4f603734e90755ab8ee1",
+          "doc_id": "consult-tutor",
+          "start": 0,
+          "end": 630,
+          "distance": 0.16154491901397705
+        },
+        {
+          "chunk_id": "platform-access-001-c5f1559c6dc1b52fc144",
+          "doc_id": "platform-access",
+          "start": 549,
+          "end": 657,
+          "distance": 0.16413092613220215
+        },
+        {
+          "chunk_id": "python-start-001-4a25fb50848f25204b33",
+          "doc_id": "python-start",
+          "start": 526,
+          "end": 771,
+          "distance": 0.16522324085235596
+        },
+        {
+          "chunk_id": "homework-feedback-000-4ffef20c6c9bf4960b5e",
+          "doc_id": "homework-feedback",
+          "start": 0,
+          "end": 587,
+          "distance": 0.16765809059143066
+        },
+        {
+          "chunk_id": "group-enrollment-000-cb0a56aea5c1803e7754",
+          "doc_id": "group-enrollment",
+          "start": 0,
+          "end": 594,
+          "distance": 0.16924649477005005
+        },
+        {
+          "chunk_id": "testing-schedule-000-b440b505e6c0c7e76d08",
+          "doc_id": "testing-schedule",
+          "start": 0,
+          "end": 601,
+          "distance": 0.1704992651939392
+        },
+        {
+          "chunk_id": "web-development-000-44a44279fe17a28187e6",
+          "doc_id": "web-development",
+          "start": 0,
+          "end": 646,
+          "distance": 0.17276108264923096
+        },
+        {
+          "chunk_id": "intro-enrollment-000-348a38b860ee41db57b4",
+          "doc_id": "intro-enrollment",
+          "start": 0,
+          "end": 605,
+          "distance": 0.1768704652786255
+        },
+        {
+          "chunk_id": "group-transfer-000-4981861e63263876d869",
+          "doc_id": "group-transfer",
+          "start": 0,
+          "end": 575,
+          "distance": 0.1784467101097107
+        },
+        {
+          "chunk_id": "python-testing-000-61828329046f2cbe4473",
+          "doc_id": "python-testing",
+          "start": 0,
+          "end": 504,
+          "distance": 0.17970985174179077
+        },
+        {
+          "chunk_id": "python-testing-001-9b09ab6b43f093c7fae4",
+          "doc_id": "python-testing",
+          "start": 456,
+          "end": 709,
+          "distance": 0.18102753162384033
+        },
+        {
+          "chunk_id": "python-evening-000-8db79fc34520eadfb7c7",
+          "doc_id": "python-evening",
+          "start": 0,
+          "end": 576,
+          "distance": 0.18255603313446045
+        },
+        {
+          "chunk_id": "consult-course-choice-000-26541a8f53057f8959e0",
+          "doc_id": "consult-course-choice",
+          "start": 0,
+          "end": 598,
+          "distance": 0.18386244773864746
+        },
+        {
+          "chunk_id": "python-start-000-932cfffa480a2f6aa436",
+          "doc_id": "python-start",
+          "start": 0,
+          "end": 569,
+          "distance": 0.18486201763153076
+        },
+        {
+          "chunk_id": "payment-terms-000-bc853051fdd145ccabc8",
+          "doc_id": "payment-terms",
+          "start": 0,
+          "end": 600,
+          "distance": 0.1854122281074524
+        },
+        {
+          "chunk_id": "analytics-weekend-000-40fa9c558efe6a51f9c4",
+          "doc_id": "analytics-weekend",
+          "start": 0,
+          "end": 605,
+          "distance": 0.18571150302886963
+        },
+        {
+          "chunk_id": "consult-career-000-8ce16ddd7efe826cf32a",
+          "doc_id": "consult-career",
+          "start": 0,
+          "end": 606,
+          "distance": 0.18796515464782715
+        }
+      ]
+    }
+  ]
+}

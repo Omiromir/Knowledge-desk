@@ -1,0 +1,115 @@
+{
+  "id": "kdeskRequest0002",
+  "name": "Knowledge Desk · request.created (test v2)",
+  "active": false,
+  "nodes": [
+    {
+      "id": "363464ed-7a66-4fa9-aad7-960dc0f8276d",
+      "name": "Test webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [0, 100],
+      "webhookId": "453353dc-ac6c-4d42-9625-ed442ac8216e",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "knowledge-desk-request-created-v2",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": { "id": "kdeskTestHdr0001", "name": "Knowledge Desk Test Header" }
+      }
+    },
+    {
+      "id": "a84d9cb7-30c1-44d1-82c9-67177e6cf249",
+      "name": "Validate event",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [235, 100],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2 },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c28dd855-656b-450c-94ec-c60c58c76308",
+              "leftValue": "={{ (() => { const b = $json.body; const id = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/; return Boolean(b && typeof b === 'object' && Object.keys(b).sort().join(',') === 'data,event_id,request_id,type' && typeof b.event_id === 'string' && id.test(b.event_id) && typeof b.request_id === 'string' && id.test(b.request_id) && b.type === 'request.created' && b.data && typeof b.data === 'object' && Object.keys(b.data).sort().join(',') === 'kind,test' && b.data.kind === 'consultation' && b.data.test === true); })() }}",
+              "rightValue": "",
+              "operator": { "type": "boolean", "operation": "true", "singleValue": true }
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "3cb3e699-da9f-42fb-b5ba-db2607348fcc",
+      "name": "Record or read receipt",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.8,
+      "position": [500, 15],
+      "onError": "continueErrorOutput",
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT * FROM knowledge_desk.record_n8n_receipt($1::uuid, $2::uuid, $3::text);",
+        "options": {
+          "queryReplacement": "={{ [$json.body.event_id, $json.body.request_id, String($execution.id)] }}",
+          "connectionTimeout": 3
+        }
+      },
+      "credentials": {
+        "postgres": { "id": "kdeskTestPg00001", "name": "Knowledge Desk Supabase Receipts" }
+      }
+    },
+    {
+      "id": "082bb0d7-91aa-40ed-a60a-899b800c052b",
+      "name": "Return receipt",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [750, -75],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.matches_request ? { status: 'accepted', event_id: $json.event_id, request_id: $json.request_id, execution_id: $json.execution_id } : { code: 'event_conflict' } }}",
+        "options": { "responseCode": "={{ $json.matches_request ? 200 : 409 }}" }
+      }
+    },
+    {
+      "id": "99eac3c0-1e2c-4d87-ac4b-414216492d88",
+      "name": "Receiver unavailable",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [750, 100],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\"code\":\"receiver_unavailable\"}",
+        "options": { "responseCode": 503 }
+      }
+    },
+    {
+      "id": "1b523bba-ed4e-44ac-8689-88e33406050e",
+      "name": "Reject invalid event",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [500, 185],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\"code\":\"invalid_event\"}",
+        "options": { "responseCode": 400 }
+      }
+    }
+  ],
+  "connections": {
+    "Test webhook": { "main": [[{ "node": "Validate event", "type": "main", "index": 0 }]] },
+    "Validate event": { "main": [[{ "node": "Record or read receipt", "type": "main", "index": 0 }], [{ "node": "Reject invalid event", "type": "main", "index": 0 }]] },
+    "Record or read receipt": { "main": [[{ "node": "Return receipt", "type": "main", "index": 0 }], [{ "node": "Receiver unavailable", "type": "main", "index": 0 }]] }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": false,
+    "saveDataSuccessExecution": "none",
+    "saveDataErrorExecution": "none",
+    "saveExecutionProgress": false
+  },
+  "pinData": {}
+}

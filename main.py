@@ -1,1 +1,0 @@
-print("Knowledge Desk - Your AI Assistant")

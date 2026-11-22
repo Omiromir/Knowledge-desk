@@ -1,0 +1,162 @@
+[
+  {
+    "doc_id": "python-start",
+    "title": "Python с нуля",
+    "topic": "courses",
+    "source": "data/documents/python-start.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "python-testing",
+    "title": "Автоматические тесты на Python",
+    "topic": "courses",
+    "source": "data/documents/python-testing.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "data-analysis",
+    "title": "Аналитика данных",
+    "topic": "courses",
+    "source": "data/documents/data-analysis.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "web-development",
+    "title": "Основы веб-разработки",
+    "topic": "courses",
+    "source": "data/documents/web-development.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "python-evening",
+    "title": "Вечерний поток Python",
+    "topic": "schedule",
+    "source": "data/documents/python-evening.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "analytics-weekend",
+    "title": "Выходной поток аналитики",
+    "topic": "schedule",
+    "source": "data/documents/analytics-weekend.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "testing-schedule",
+    "title": "Расписание потока тестирования",
+    "topic": "schedule",
+    "source": "data/documents/testing-schedule.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "holiday-calendar",
+    "title": "Изменения расписания и перерывы",
+    "topic": "schedule",
+    "source": "data/documents/holiday-calendar.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "intro-enrollment",
+    "title": "Запись на вводное занятие",
+    "topic": "enrollment",
+    "source": "data/documents/intro-enrollment.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "group-enrollment",
+    "title": "Зачисление в основную группу",
+    "topic": "enrollment",
+    "source": "data/documents/group-enrollment.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "group-transfer",
+    "title": "Смена потока",
+    "topic": "enrollment",
+    "source": "data/documents/group-transfer.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "payment-terms",
+    "title": "Оплата и рассрочка",
+    "topic": "enrollment",
+    "source": "data/documents/payment-terms.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "consult-course-choice",
+    "title": "Консультация по выбору курса",
+    "topic": "consultations",
+    "source": "data/documents/consult-course-choice.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "consult-tutor",
+    "title": "Консультация с преподавателем",
+    "topic": "consultations",
+    "source": "data/documents/consult-tutor.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "consult-career",
+    "title": "Карьерная консультация",
+    "topic": "consultations",
+    "source": "data/documents/consult-career.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "consult-reschedule",
+    "title": "Перенос консультации",
+    "topic": "consultations",
+    "source": "data/documents/consult-reschedule.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "lesson-recordings",
+    "title": "Записи и пропущенные занятия",
+    "topic": "learning",
+    "source": "data/documents/lesson-recordings.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "homework-feedback",
+    "title": "Домашние задания и обратная связь",
+    "topic": "learning",
+    "source": "data/documents/homework-feedback.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "completion-certificate",
+    "title": "Итоговая работа и сертификат",
+    "topic": "learning",
+    "source": "data/documents/completion-certificate.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  },
+  {
+    "doc_id": "platform-access",
+    "title": "Доступ к платформе и техническая помощь",
+    "topic": "learning",
+    "source": "data/documents/platform-access.md",
+    "version_date": "2026-11-08",
+    "usage_basis": "Собственный вымышленный текст, созданный для учебного корпуса Knowledge Desk."
+  }
+]
