@@ -1,0 +1,111 @@
+{
+  "mode": "mock",
+  "network_calls": 0,
+  "manifest": {
+    "manifest_version": "1",
+    "commit": "1a52d3c77a50a4d04ef3048e516bfed791be095e",
+    "inputs_sha256": "b3a4c3521ac0a04c1a61f32896ca583cf01a5464acd7b624d91ae20dcaf29356",
+    "model": "gpt-4.1-mini-2025-04-14",
+    "prompts": {
+      "version": "document-grounded-v16",
+      "effective": {
+        "answer": "c7e8da17407bde1d4c505291a2e6845cee5d5b4ebdd5bc4bb983524f1c5abec9",
+        "required_share": "612e48b53b728728fdeb5fe8c8a562fede2a3030b139513f830278c26c222d96",
+        "verification": "2bd736bdc14022c6ab3ef55fe4c0b3c18eb7887ecab3ccc288944700395d702c"
+      },
+      "files": {
+        "prompts/eval/judge-v1.txt": "34d2c3f2fcc27907c244baba6e2ebbd20ac72c19b517650ef7d8fbe0a7deb44b",
+        "prompts/rag/actor-v16.txt": "08cd5b2823db8b6586254095988fd77f0eb9f44a0df91f128cc8ac7699903160",
+        "prompts/rag/answer-scope.txt": "08c91899d339baa84274b31654761b57fa3aac6aa535f6d4c3fc47a2a52e3cdc",
+        "prompts/rag/conditions.txt": "7cbf265b26444e5e19563cd9257dfcefe26ae53ad4461c0b30443e40e503d7ea",
+        "prompts/rag/document-grounded-v10.txt": "e8d6f80949f57939274a0ad08a13976476b2c128eaae8fab69a9a2e14f520bc1",
+        "prompts/rag/document-grounded-v11.txt": "9eed5089e093b072885a221b78171d218a4e9e04614938ef03ae0c2ad5823618",
+        "prompts/rag/document-grounded-v2.txt": "970b6eac4494451bab6d33e110d863fcb1f9164853883bba48887daa73d5e472",
+        "prompts/rag/document-grounded-v3.txt": "65a7d00c21b369e0878d61aef8358a0f039324147b88acb5dee69013294ee331",
+        "prompts/rag/document-grounded-v4.txt": "c7f73aff7ed4881ad181f68cc271f1fafc0de2d849281eacc5aea8c62cac06f9",
+        "prompts/rag/document-grounded-v5.txt": "e7bd3eeffc8118c0f0dd9bcdcfc906fd9a17d0572e0777af19fe9277301e7d1b",
+        "prompts/rag/document-grounded-v6.txt": "01053b009f1e3d7f01e8708a91f694ec8c170f62bd959de322392d65264b97ec",
+        "prompts/rag/document-grounded-v7.txt": "f9987d494af15525e88b640ed64ab8756476175bc853b0cff9597dd04b690e09",
+        "prompts/rag/document-grounded-v8.txt": "fe15ea626812a995db2fa2a681f99fbace07f052a4c386aac60f0f0bbc638c7a",
+        "prompts/rag/document-grounded-v9.txt": "9eed5089e093b072885a221b78171d218a4e9e04614938ef03ae0c2ad5823618",
+        "prompts/rag/evidence.txt": "3fd1834953d39b04d92b7829db99042108ad9f3712d48dc3fef9fcedc1734228",
+        "prompts/rag/orbita-grounded-v1.txt": "294d199542a03e0ecba67805140fbb18e75ad280a581298366aee2b38ce2bd73",
+        "prompts/rag/required-share.txt": "8f1ce7e422793cbf9d859b677eeb84a13cace2ac0b5bb7103d4787a9197651ba",
+        "prompts/rag/verify.txt": "ff3866c2edc9fec44674f11d06c8c7107e73735782eba5f23aa079e45ae6fe2f",
+        "prompts/summary/education-a.txt": "1162df0977daf177ea00fff434b5785272d022d0fd258296d6874cd67c804145",
+        "prompts/summary/education-b.txt": "34261ed63dd709446199d4e5b4d00a549f036c01acf9ae4593260da94bcb1ba8",
+        "prompts/summary/general-v1.txt": "fbd90c635b231162d6be3f571b00bc8911591e6b37382976dd8a588eeb519970",
+        "prompts/tools/assistant-v1.txt": "287790105e926dd969b0b492efe98d740eecd98e665638ef5f6068a6d73806ef"
+      }
+    },
+    "corpus": {
+      "version": "orbita-v1",
+      "manifest": "data/manifest.json",
+      "sha256": "093c3f0016a5eac42da4bf6cf022eeaf9e0e86f09e4c5cbb84f32227b9d70a35"
+    },
+    "index": {
+      "model": "intfloat/multilingual-e5-small",
+      "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+      "dimension": 384,
+      "metric": "cosine",
+      "chunking": "paragraph-word-v1:600:50",
+      "kind": "local-fixture-chunks",
+      "contents_sha256": "321ec6ee62ff0a40cdaa4e2a3123070180f9bb48c99e8ee1416b4f8f3be61f64",
+      "chunk_ids_sha256": "8e953e25c9318b0fa225bce35af435df69ab9b4f29e2eb497d9be2a159ce90a2",
+      "sha256": "6de4ca11062a6d7248432483a9879214aac7fb6bb8064f4cc4896e91904861e8"
+    },
+    "retrieval": {
+      "top_k": 5,
+      "max_cosine_distance": 0.18
+    },
+    "dataset": {
+      "version": "module-15-mock-v1",
+      "path": "data/eval/mock-ci-v1.json",
+      "sha256": "602e2a3f3f781419c5d159457f67742e34345946ee5cc90ee22fd3efb8300eaa"
+    },
+    "code_sha256": "0cb905e5e465fd3e2b77e334bee0355b5071a963a7688f8257e974ac0bb567ba"
+  },
+  "cases": [
+    {
+      "id": "M01",
+      "expected": "grounded",
+      "actual": "grounded",
+      "mock_calls": 2,
+      "expected_calls": 2
+    },
+    {
+      "id": "M02",
+      "expected": "refused",
+      "actual": "refused",
+      "mock_calls": 0,
+      "expected_calls": 0
+    },
+    {
+      "id": "M03",
+      "expected": "invalid_citation",
+      "actual": "invalid_citation",
+      "mock_calls": 1,
+      "expected_calls": 1
+    },
+    {
+      "id": "M04",
+      "expected": "invalid_answer",
+      "actual": "invalid_answer",
+      "mock_calls": 1,
+      "expected_calls": 1
+    },
+    {
+      "id": "M05",
+      "expected": "unknown_tool",
+      "actual": "unknown_tool",
+      "mock_calls": 0,
+      "expected_calls": 0
+    }
+  ],
+  "database_counts": {
+    "requests": 0,
+    "integration_events": 0,
+    "consultation_drafts": 0
+  },
+  "passed": true
+}

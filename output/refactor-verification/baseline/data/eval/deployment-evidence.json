@@ -1,0 +1,436 @@
+{
+  "versions": {
+    "python": "3.12.10",
+    "node": "24.11.0",
+    "npm": "11.6.1",
+    "n8n": "2.48.7"
+  },
+  "checks": {
+    "http": {
+      "health": {
+        "http": 200,
+        "trace_id": "e1d021598e834007b3afe7794497616c"
+      },
+      "anonymous_write": {
+        "http": 401,
+        "trace_id": "0964c157a8a24a709045d5b006d6aa39"
+      },
+      "wrong_origin": {
+        "http": 403,
+        "trace_id": "44c9aa3d6ed34645bc61a7a99abfd63f"
+      },
+      "reader_login": {
+        "http": 200,
+        "trace_id": "c1fc3c2e815a47acb4ecc9fd5e9e88f4"
+      },
+      "reader_write_document": {
+        "http": 403,
+        "trace_id": "1334c8d66a144b789075457ebef0cc43"
+      },
+      "upload": {
+        "http": 201,
+        "trace_id": "dee22dbd226247e7970c84bd70794fc9"
+      },
+      "foreign_document": {
+        "http": 404,
+        "trace_id": "08cb687661b94e7180572b1d9100a0f7"
+      },
+      "ask": {
+        "http": 200,
+        "trace_id": "80fca693fd8f455181b8b7119e47632a"
+      },
+      "source": {
+        "http": 200,
+        "trace_id": "43a47bce1e3d42f4a2bc1e6b2b2eaae8"
+      },
+      "foreign_citation": {
+        "http": 404,
+        "trace_id": "e96509cf14de45559e25941f6d65e756"
+      },
+      "refusal": {
+        "http": 200,
+        "trace_id": "cdfe274f4d2942ecbaedcd588410f827"
+      },
+      "summary": {
+        "http": 200,
+        "trace_id": "6c6db1b7545046548b2c8b9345ac1f19"
+      },
+      "draft": {
+        "http": 201,
+        "trace_id": "c97555837d9f48ea8037914115df3186"
+      },
+      "prepare": {
+        "http": 200,
+        "trace_id": "180251f05dd046f99f1067e97caae306"
+      },
+      "foreign_confirmation": {
+        "http": 404,
+        "trace_id": "bb31ddb3949c4002a8cd6ae5ee8e3ef0"
+      },
+      "confirm": {
+        "http": 200,
+        "trace_id": "168aeb888a724bbcaaab39ec25f6313c"
+      },
+      "foreign_request": {
+        "http": 404,
+        "trace_id": "9c71490eb7c24c78b70489f264f14661"
+      },
+      "foreign_receipt": {
+        "http": 404,
+        "trace_id": "3ccf22d943f64059ab26702696fe1304"
+      },
+      "foreign_retry": {
+        "http": 404,
+        "trace_id": "e8a9d78b3bf24265905badc35ed26f9e"
+      },
+      "idempotent_retry": {
+        "http": 200,
+        "trace_id": "f2498a5482ca41bea2175a4dc030467c"
+      }
+    },
+    "cookie": {
+      "secure": true,
+      "httpOnly": true,
+      "sameSite": "Strict"
+    },
+    "document": "2acab791-06e4-503c-bb2c-d4fe18f0997f",
+    "chunk_id": "upload:cf01d6a847760bd7748a:2acab791-06e4-503c-bb2c-d4fe18f0997f-000-5f67b645f69e4089b1a1",
+    "draft_id": "285c49e3-f87f-4c67-9e5c-a9aa87780c75",
+    "request_id": "dd9a6c34-c677-4beb-8b15-ea292afe8e39",
+    "delivery": {
+      "event_id": "760b0a1f-8667-4198-86f5-9103282aec44",
+      "request_id": "dd9a6c34-c677-4beb-8b15-ea292afe8e39",
+      "status": "delivered",
+      "reason": null,
+      "receipt": {
+        "status": "accepted",
+        "event_id": "760b0a1f-8667-4198-86f5-9103282aec44",
+        "request_id": "dd9a6c34-c677-4beb-8b15-ea292afe8e39",
+        "execution_id": "1"
+      },
+      "updated_at": "2026-11-20T19:11:12.962886+00:00",
+      "can_retry": false
+    },
+    "browser_verified": true
+  },
+  "health": {
+    "status": "ready",
+    "database": "ok",
+    "index": "ok"
+  },
+  "restart": {
+    "document": "2acab791-06e4-503c-bb2c-d4fe18f0997f",
+    "chunk": "upload:cf01d6a847760bd7748a:2acab791-06e4-503c-bb2c-d4fe18f0997f-000-5f67b645f69e4089b1a1",
+    "request": "dd9a6c34-c677-4beb-8b15-ea292afe8e39",
+    "draft": "285c49e3-f87f-4c67-9e5c-a9aa87780c75",
+    "receipt": {
+      "status": "accepted",
+      "event_id": "760b0a1f-8667-4198-86f5-9103282aec44",
+      "request_id": "dd9a6c34-c677-4beb-8b15-ea292afe8e39",
+      "execution_id": "1"
+    },
+    "same_origin_build": true,
+    "repeated_confirmation_same_receipt": true
+  },
+  "secrets_absent_from_app_log": true,
+  "usage": {
+    "input_tokens": 2798,
+    "cached_input_tokens": 0,
+    "output_tokens": 257
+  },
+  "observed_cost_usd": 0.0015304,
+  "scenarios": {
+    "ask": {
+      "trace_id": "80fca693fd8f455181b8b7119e47632a",
+      "stages": [
+        {
+          "trace_id": "80fca693fd8f455181b8b7119e47632a",
+          "stage": "retrieval",
+          "started_at": "2026-11-20T19:10:34.872690+00:00",
+          "finished_at": "2026-11-20T19:10:35.372262+00:00",
+          "duration_ms": 500.01,
+          "status": "ok",
+          "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+          "index": "pgvector",
+          "top_k": 5,
+          "chunk_size": 600,
+          "hits": 5
+        },
+        {
+          "trace_id": "80fca693fd8f455181b8b7119e47632a",
+          "stage": "context",
+          "started_at": "2026-11-20T19:10:35.374265+00:00",
+          "finished_at": "2026-11-20T19:10:35.374265+00:00",
+          "duration_ms": 0.29,
+          "status": "ok",
+          "hits": 5,
+          "max_distance": 0.18,
+          "selected": 1
+        },
+        {
+          "trace_id": "80fca693fd8f455181b8b7119e47632a",
+          "stage": "model",
+          "started_at": "2026-11-20T19:10:35.374265+00:00",
+          "finished_at": "2026-11-20T19:10:42.163696+00:00",
+          "duration_ms": 6788.73,
+          "status": "ok",
+          "model": "gpt-4.1-mini",
+          "schema": "AskEvidenceDraft",
+          "input_tokens": 1849,
+          "output_tokens": 208,
+          "provider_model": "gpt-4.1-mini-2025-04-14",
+          "cached_input_tokens": 0
+        },
+        {
+          "trace_id": "80fca693fd8f455181b8b7119e47632a",
+          "stage": "model",
+          "started_at": "2026-11-20T19:10:42.166695+00:00",
+          "finished_at": "2026-11-20T19:10:43.422728+00:00",
+          "duration_ms": 1256.02,
+          "status": "ok",
+          "model": "gpt-4.1-mini",
+          "schema": "AnswerVerification",
+          "input_tokens": 575,
+          "output_tokens": 11,
+          "provider_model": "gpt-4.1-mini-2025-04-14",
+          "cached_input_tokens": 0
+        },
+        {
+          "trace_id": "80fca693fd8f455181b8b7119e47632a",
+          "stage": "grounding",
+          "started_at": "2026-11-20T19:10:35.374265+00:00",
+          "finished_at": "2026-11-20T19:10:43.423725+00:00",
+          "duration_ms": 8049.43,
+          "status": "ok",
+          "version": "document-grounded-v16",
+          "policy": "cosine-explicit-year-v4",
+          "context_count": 1,
+          "citations": 1
+        },
+        {
+          "trace_id": "80fca693fd8f455181b8b7119e47632a",
+          "stage": "http",
+          "started_at": "2026-11-20T19:10:33.621308+00:00",
+          "finished_at": "2026-11-20T19:10:43.424726+00:00",
+          "duration_ms": 9803.93,
+          "status": 200,
+          "method": "POST",
+          "route": "/ask"
+        }
+      ]
+    },
+    "refusal": {
+      "trace_id": "cdfe274f4d2942ecbaedcd588410f827",
+      "stages": [
+        {
+          "trace_id": "cdfe274f4d2942ecbaedcd588410f827",
+          "stage": "retrieval",
+          "started_at": "2026-11-20T19:10:48.197965+00:00",
+          "finished_at": "2026-11-20T19:10:48.640515+00:00",
+          "duration_ms": 442.68,
+          "status": "ok",
+          "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+          "index": "pgvector",
+          "top_k": 5,
+          "chunk_size": 600,
+          "hits": 5
+        },
+        {
+          "trace_id": "cdfe274f4d2942ecbaedcd588410f827",
+          "stage": "context",
+          "started_at": "2026-11-20T19:10:48.642519+00:00",
+          "finished_at": "2026-11-20T19:10:48.642519+00:00",
+          "duration_ms": 0.06,
+          "status": "ok",
+          "hits": 5,
+          "max_distance": 0.18,
+          "selected": 2
+        },
+        {
+          "trace_id": "cdfe274f4d2942ecbaedcd588410f827",
+          "stage": "grounding",
+          "started_at": "2026-11-20T19:10:48.642519+00:00",
+          "finished_at": "2026-11-20T19:10:48.643519+00:00",
+          "duration_ms": 0.34,
+          "status": "refused",
+          "version": "document-grounded-v16",
+          "policy": "cosine-explicit-year-v4",
+          "context_count": 2,
+          "code": "policy"
+        },
+        {
+          "trace_id": "cdfe274f4d2942ecbaedcd588410f827",
+          "stage": "http",
+          "started_at": "2026-11-20T19:10:46.877285+00:00",
+          "finished_at": "2026-11-20T19:10:48.643519+00:00",
+          "duration_ms": 1766.29,
+          "status": 200,
+          "method": "POST",
+          "route": "/ask"
+        }
+      ]
+    },
+    "summary": {
+      "trace_id": "6c6db1b7545046548b2c8b9345ac1f19",
+      "stages": [
+        {
+          "trace_id": "6c6db1b7545046548b2c8b9345ac1f19",
+          "stage": "model",
+          "started_at": "2026-11-20T19:10:49.848509+00:00",
+          "finished_at": "2026-11-20T19:10:51.401809+00:00",
+          "duration_ms": 1553.99,
+          "status": "ok",
+          "model": "gpt-4.1-mini",
+          "schema": "RequestSummary",
+          "input_tokens": 374,
+          "output_tokens": 38,
+          "provider_model": "gpt-4.1-mini-2025-04-14",
+          "cached_input_tokens": 0
+        },
+        {
+          "trace_id": "6c6db1b7545046548b2c8b9345ac1f19",
+          "stage": "http",
+          "started_at": "2026-11-20T19:10:48.648519+00:00",
+          "finished_at": "2026-11-20T19:10:51.404804+00:00",
+          "duration_ms": 2755.96,
+          "status": 200,
+          "method": "POST",
+          "route": "/ai/summary"
+        }
+      ]
+    },
+    "prepare": {
+      "trace_id": "180251f05dd046f99f1067e97caae306",
+      "stages": [
+        {
+          "trace_id": "180251f05dd046f99f1067e97caae306",
+          "stage": "tool_arguments",
+          "started_at": "2026-11-20T19:10:57.919727+00:00",
+          "finished_at": "2026-11-20T19:10:57.920724+00:00",
+          "duration_ms": 0.49,
+          "status": "ok",
+          "tool": "search_documents",
+          "contract": "v1"
+        },
+        {
+          "trace_id": "180251f05dd046f99f1067e97caae306",
+          "stage": "retrieval",
+          "started_at": "2026-11-20T19:10:57.920724+00:00",
+          "finished_at": "2026-11-20T19:10:58.475609+00:00",
+          "duration_ms": 554.49,
+          "status": "ok",
+          "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+          "index": "pgvector",
+          "top_k": 5,
+          "chunk_size": 600,
+          "hits": 5
+        },
+        {
+          "trace_id": "180251f05dd046f99f1067e97caae306",
+          "stage": "context",
+          "started_at": "2026-11-20T19:10:58.476617+00:00",
+          "finished_at": "2026-11-20T19:10:58.476617+00:00",
+          "duration_ms": 0.06,
+          "status": "ok",
+          "hits": 5,
+          "max_distance": 0.18,
+          "selected": 1
+        },
+        {
+          "trace_id": "180251f05dd046f99f1067e97caae306",
+          "stage": "tool",
+          "started_at": "2026-11-20T19:10:57.920724+00:00",
+          "finished_at": "2026-11-20T19:10:58.477613+00:00",
+          "duration_ms": 556.54,
+          "status": "success",
+          "tool": "search_documents",
+          "attempt": 1,
+          "contract": "v1"
+        },
+        {
+          "trace_id": "180251f05dd046f99f1067e97caae306",
+          "stage": "tool_arguments",
+          "started_at": "2026-11-20T19:10:58.963905+00:00",
+          "finished_at": "2026-11-20T19:10:58.968697+00:00",
+          "duration_ms": 4.24,
+          "status": "ok",
+          "tool": "prepare_request",
+          "contract": "v1"
+        },
+        {
+          "trace_id": "180251f05dd046f99f1067e97caae306",
+          "stage": "tool",
+          "started_at": "2026-11-20T19:10:58.969694+00:00",
+          "finished_at": "2026-11-20T19:10:58.969694+00:00",
+          "duration_ms": 0.63,
+          "status": "success",
+          "tool": "prepare_request",
+          "attempt": 1,
+          "contract": "v1"
+        },
+        {
+          "trace_id": "180251f05dd046f99f1067e97caae306",
+          "stage": "http",
+          "started_at": "2026-11-20T19:10:53.366715+00:00",
+          "finished_at": "2026-11-20T19:11:01.286441+00:00",
+          "duration_ms": 7919.38,
+          "status": 200,
+          "method": "POST",
+          "route": "/consultations/{draft_id}/prepare"
+        }
+      ]
+    },
+    "confirm": {
+      "trace_id": "168aeb888a724bbcaaab39ec25f6313c",
+      "stages": [
+        {
+          "trace_id": "168aeb888a724bbcaaab39ec25f6313c",
+          "stage": "delivery",
+          "started_at": "2026-11-20T19:11:10.599084+00:00",
+          "finished_at": "2026-11-20T19:11:12.766825+00:00",
+          "duration_ms": 2167.17,
+          "status": "delivered",
+          "event_id": "760b0a1f-8667-4198-86f5-9103282aec44",
+          "retry": false,
+          "contract": "v2",
+          "code": null
+        },
+        {
+          "trace_id": "168aeb888a724bbcaaab39ec25f6313c",
+          "stage": "http",
+          "started_at": "2026-11-20T19:11:03.187249+00:00",
+          "finished_at": "2026-11-20T19:11:13.979226+00:00",
+          "duration_ms": 10791.78,
+          "status": 200,
+          "method": "POST",
+          "route": "/consultations/{draft_id}/confirm"
+        }
+      ]
+    }
+  },
+  "sha256": {
+    "requirements.txt": "c30ffaacc8e7d65b1d4e8f16bda7787cc85a3c7bc09eac1deb78d1b80227ccbe",
+    "frontend/package-lock.json": "4f8791f05f695e2d56f03d9ea4cfdef6f1c2cc1dd00cfc2f5ac5af7ed0f496ba",
+    "backend/app/main.py": "fe03c73ddcce9cbdce0046ad59ffe5c9f1f76144b7325eb99d7ad51f6b58d820"
+  },
+  "health_without_index": {
+    "http": 503,
+    "status": "not_ready",
+    "database": "ok",
+    "index": "unavailable"
+  },
+  "after_repeat_counts": {
+    "requests": 1,
+    "app_events": 1,
+    "n8n_receipts": 1
+  },
+  "clean_install": {
+    "python_distributions": 143,
+    "python_dependency_check": "ok",
+    "npm_ci": "ok",
+    "frontend_build": "ok",
+    "frontend_lint": "ok",
+    "backend_tests": 187,
+    "backend_subtests": 8
+  }
+}

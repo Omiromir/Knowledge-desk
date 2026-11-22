@@ -1,0 +1,281 @@
+.document-view-controls {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: 8px;
+  margin-inline-start: auto;
+}
+
+.document-view-switch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius);
+  white-space: nowrap;
+}
+
+.document-view-switch a[aria-current='true'] {
+  background: var(--selected);
+  color: var(--text);
+}
+
+.document-graph {
+  position: relative;
+  min-height: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  background: #151619;
+}
+
+.document-graph-viewport {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.document-graph-viewport:active { cursor: grabbing; }
+.document-graph-viewport:focus-visible { outline-offset: -3px; }
+
+.document-graph-edge {
+  stroke: #56566a;
+  stroke-width: 1;
+  pointer-events: none;
+}
+
+.document-graph-edge[data-kind='text'] {
+  stroke: #4b4a5b;
+  stroke-dasharray: 2.5 3.5;
+}
+
+.document-graph-edge[data-highlighted='true'] {
+  stroke: #a8a4ef;
+  stroke-width: 1.4;
+}
+.reader-local-graph .document-graph-edge[data-highlighted='true'] {
+  stroke: #c4bbff;
+  stroke-width: 2;
+}
+
+.document-graph-node { cursor: pointer; touch-action: none; }
+.document-graph-node:focus-visible { outline: none; }
+.document-graph-node[data-matched='false'] { pointer-events: none; }
+
+.document-graph-hit {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 18;
+}
+
+.document-graph-mark {
+  --page-face: #24232b;
+  --page-fold: #4d495b;
+  color: #a4a0b2;
+}
+.document-graph-mark path {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.document-graph-mark-sheet { fill: var(--page-face); stroke: currentColor; stroke-width: 1.15; }
+.document-graph-mark-fold { fill: var(--page-fold); }
+.document-graph-mark-lines { fill: none; stroke: currentColor; stroke-width: 1; }
+.document-graph-node[data-connected='true'] .document-graph-mark { color: #bcb2ec; }
+.document-graph-node[data-active='true'] { opacity: 1; }
+.document-graph-node[data-highlighted='true'] .document-graph-mark {
+  --page-face: #3b3153;
+  --page-fold: #67568c;
+  color: #e2d9ff;
+}
+.document-graph-node[data-center='true'] { cursor: inherit; }
+.document-graph-node[data-center='true'] .document-graph-mark {
+  --page-face: #c1b1f1;
+  --page-fold: #8c78ca;
+  color: #36284f;
+}
+.document-graph-node[data-center='true'] .document-graph-mark-sheet { stroke: #e3d9ff; }
+.document-graph-node:focus-visible .document-graph-mark-sheet {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  paint-order: stroke fill;
+}
+
+.document-graph-node[data-dimmed='true'],
+.document-graph-edge[data-dimmed='true'] { opacity: .22; }
+
+.document-graph-ring { pointer-events: none; }
+.document-graph-ring circle {
+  fill: none;
+  stroke: #424050;
+  stroke-width: 1;
+}
+.document-graph-ring text {
+  fill: #aaa5bb;
+  stroke: #151619;
+  stroke-width: var(--graph-label-stroke, 3px);
+  paint-order: stroke fill;
+  font-size: var(--graph-label-size, 11px);
+  font-variant-numeric: tabular-nums;
+}
+
+.document-graph [data-depth-hidden='true'] { opacity: 0; pointer-events: none; }
+
+.document-graph-title {
+  fill: #b5b5c3;
+  stroke: #151619;
+  stroke-width: var(--graph-label-stroke, 3px);
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+  font-size: var(--graph-label-size, 11px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.document-graph-title[data-visible] { opacity: .88; }
+.document-graph-node[data-center='true'] .document-graph-title,
+.document-graph-viewport[data-single-match='true'] .document-graph-node[data-matched='true'] .document-graph-title,
+.document-graph-node[data-highlighted='true'] .document-graph-title,
+.document-graph-node:focus-visible .document-graph-title {
+  fill: var(--text);
+  opacity: 1;
+}
+
+.document-graph-legend,
+.document-graph-controls {
+  position: absolute;
+  bottom: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.document-graph-legend {
+  left: 14px;
+  gap: 12px;
+  padding: 6px 8px;
+  background: #151619;
+  color: #b1b1bc;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.document-graph-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.graph-legend-link::before,
+.graph-legend-text::before {
+  width: 12px;
+  border-top: 1px solid var(--accent);
+  content: '';
+}
+.graph-legend-text::before { border-top-style: dashed; }
+
+.document-graph-controls {
+  right: 14px;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.document-graph-instructions {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.reader-graph-toggle[aria-expanded='true'] {
+  background: var(--selected);
+  color: var(--text);
+}
+
+.reader-toolbar-inner:has(.reader-graph-toggle) > .icon-button:last-child { margin-inline-start: 0; }
+
+.reader-local-graph {
+  border-bottom: 1px solid var(--line);
+  background: #151619;
+}
+
+.reader-graph-depth {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 10px;
+  padding: 6px var(--gutter);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.reader-graph-depth-options {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius);
+}
+
+.reader-graph-depth-options label {
+  position: relative;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.reader-graph-depth-options input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.reader-graph-depth-options label > span {
+  display: flex;
+  align-items: center;
+  min-height: 28px;
+  padding-inline: 9px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.reader-graph-depth-options label:hover > span { color: var(--text); }
+.reader-graph-depth-options input:checked + span { background: var(--selected); color: var(--text); }
+.reader-graph-depth-options input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.reader-local-graph-body { height: clamp(270px, 39dvh, 405px); }
+.reader-local-graph .document-graph { border-top: 0; }
+.reader-local-graph-body > .async-state { --async-state-height: 100%; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .document-graph-node,
+  .document-graph-edge,
+  .document-graph-title { transition: opacity 160ms ease; }
+  .reader-local-graph :is(.document-graph-node, .document-graph-edge, .document-graph-ring) {
+    transition: opacity 240ms ease;
+  }
+}
+
+@media (max-width: 720px) {
+  .document-view-controls { gap: 4px; }
+  .document-view-switch a { min-height: 36px; padding-inline: 7px; }
+  .document-view-switch a > svg { display: none; }
+  .document-search:not(:focus) { text-overflow: ellipsis; }
+  .document-graph-controls { right: 10px; bottom: 34px; }
+  .document-graph-controls .icon-button { min-width: 44px; min-height: 44px; }
+  .document-graph-legend { top: 8px; bottom: auto; left: 8px; }
+  .reader-graph-toggle { position: relative; inline-size: 44px; }
+  .reader-graph-toggle span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .reader-graph-depth { justify-content: start; }
+  .reader-graph-depth-options label > span { min-height: 38px; }
+  .reader-local-graph-body { height: clamp(255px, 37dvh, 340px); }
+  .reader-local-graph .document-graph-controls { bottom: 10px; }
+  .reader-local-graph .document-graph-legend { flex-wrap: wrap; column-gap: 9px; max-width: calc(100% - 16px); }
+}
+
+@media (max-width: 360px) {
+  .reader-toolbar-inner:has(.reader-graph-toggle) { gap: 4px; }
+}

@@ -1,0 +1,535 @@
+[
+  {
+    "id": "R01",
+    "question": "Что уже надо уметь, чтобы пойти на курс по автоматическим тестам Python?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "python-testing"
+    ],
+    "reference_answer": "Нужно уметь писать функции и работать со списками и словарями.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R02",
+    "question": "В какие дни и во сколько встречается вечерняя группа Python для новичков?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "python-evening"
+    ],
+    "reference_answer": "Вторник и четверг, 19:00–20:30 UTC+5.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R03",
+    "question": "Можно ли сначала бесплатно попробовать занятие? Сколько оно длится?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "intro-enrollment"
+    ],
+    "reference_answer": "Вводное занятие бесплатное и длится 30 минут.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R04",
+    "question": "Мне удобнее другая группа того же курса. За сколько дней нужно попросить о переходе?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "group-transfer"
+    ],
+    "reference_answer": "Не позднее чем за два учебных дня до первой встречи новой группы, при наличии места.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R05",
+    "question": "Можно ли разбить стоимость обучения на два взноса и к какому сроку нужен второй?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "payment-terms"
+    ],
+    "reference_answer": "Два равных платежа без доплаты. Второй до начала четвёртой учебной недели.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R06",
+    "question": "Могу ли я обсудить портфолио после завершения только одного курса и сколько длится встреча?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "consult-career"
+    ],
+    "reference_answer": "Да, карьерная консультация доступна после хотя бы одного курса и длится 40 минут.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R07",
+    "question": "Записался на личный созвон, но осталось меньше половины суток. Что будет, если попрошу сдвинуть время?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "consult-reschedule"
+    ],
+    "reference_answer": "Менее чем за 12 часов встречу снимают из календаря; новую можно запросить отдельно.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R08",
+    "question": "Я пропустил урок. Через сколько появится видео и где его искать?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "lesson-recordings"
+    ],
+    "reference_answer": "В разделе «Материалы» в течение 24 часов после завершения занятия.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R09",
+    "question": "Мне ответили на домашку с замечаниями. Можно ли прислать исправления и сколько раз?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "homework-feedback"
+    ],
+    "reference_answer": "Разрешена одна доработка через ту же карточку задания.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R10",
+    "question": "Какую долю обязательных работ нужно сдать для сертификата, если смотрю занятия в записи?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "completion-certificate"
+    ],
+    "reference_answer": "Не менее 80% обязательных заданий и принятая итоговая работа. Прямые эфиры не обязательны.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R11",
+    "question": "Сколько недель длится веб-разработка и какой проект нужно сделать в конце?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "web-development"
+    ],
+    "reference_answer": "Десять недель. Итоговый проект — каталог учебных материалов с поиском и страницей документа.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R12",
+    "question": "Когда начинается занятие по аналитике в субботу и сколько стоит этот курс?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "analytics-weekend",
+      "payment-terms"
+    ],
+    "reference_answer": "10:00 UTC+5 по субботам. Курс стоит 150 условных единиц.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R13",
+    "question": "Сколько минут даётся на консультацию с преподавателем и что подготовить?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "consult-tutor"
+    ],
+    "reference_answer": "20 минут. Нужны короткое описание проблемы и пример того, что уже пробовали.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R14",
+    "question": "Сколько времени проверяют домашнюю работу после того, как я её отправил?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "homework-feedback"
+    ],
+    "reference_answer": "Три учебных дня после сдачи.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R15",
+    "question": "Как долго доступна запись урока и когда появится электронный сертификат после принятия итоговой работы?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "lesson-recordings",
+      "completion-certificate"
+    ],
+    "reference_answer": "Запись доступна до 30 дней после окончания курса. Сертификат появляется в течение пяти учебных дней после принятия работы.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R16",
+    "question": "Сколько стоит курс по машинному обучению в центре «Орбита»?",
+    "answerable": false,
+    "expected_doc_ids": [],
+    "reference_answer": "В корпусе нет цены курса по машинному обучению.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R17",
+    "question": "Какое точное расписание занятий курса Python на осень 2028 года?",
+    "answerable": false,
+    "expected_doc_ids": [],
+    "reference_answer": "Есть общее расписание потоков, календаря на осень 2028 года нет.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R18",
+    "question": "Какой процент денег вернут, если я откажусь от курса после третьего занятия?",
+    "answerable": false,
+    "expected_doc_ids": [],
+    "reference_answer": "Правил возврата и процента нет.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R19",
+    "question": "Какая погода будет завтра в Лесогорске?",
+    "answerable": false,
+    "expected_doc_ids": [],
+    "reference_answer": "Прогноза погоды в корпусе нет.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "R20",
+    "question": "Как заменить фильтр в бытовом холодильнике?",
+    "answerable": false,
+    "expected_doc_ids": [],
+    "reference_answer": "Инструкции о ремонте техники в корпусе нет.",
+    "split": "tuning_dev",
+    "kind": "previous_dev"
+  },
+  {
+    "id": "B01",
+    "question": "Поставил заявку на вводную встречу, но ещё не выбирал основной поток. Что требуется, чтобы меня зачислили в основную группу?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "group-enrollment"
+    ],
+    "reference_answer": "Нужно выбрать курс и поток, заполнить заявку на зачисление и дождаться подтверждения места.",
+    "split": "control_new",
+    "kind": "clarification"
+  },
+  {
+    "id": "B02",
+    "question": "Вступительное пробное задание для основной группы не получилось. Значит ли это, что я уже не могу выбрать вводный курс?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "group-enrollment"
+    ],
+    "reference_answer": "Нет. Отрицательный результат не мешает выбрать вводный курс, пробное задание помогает подобрать ступень.",
+    "split": "control_new",
+    "kind": "condition"
+  },
+  {
+    "id": "B03",
+    "question": "На какой срок после окончания курса сохраняется доступ к материалам платформы, и на какой срок сохраняется доступ к видео уроков?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "platform-access",
+      "lesson-recordings"
+    ],
+    "reference_answer": "Материалы платформы доступны ещё 30 дней после окончания курса, записи уроков до 30 дней после окончания курса.",
+    "split": "control_new",
+    "kind": "multi_source"
+  },
+  {
+    "id": "B04",
+    "question": "Сколько времени занимает встреча для подбора программы и какой результат предлагает методист?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "consult-course-choice"
+    ],
+    "reference_answer": "Онлайн-встреча длится 25 минут, методист предлагает одну или две программы для сравнения.",
+    "split": "control_new",
+    "kind": "paraphrase"
+  },
+  {
+    "id": "B05",
+    "question": "У меня вопрос по описанию одной программы. Нужно ли ради него обязательно назначать индивидуальную консультацию?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "consult-course-choice"
+    ],
+    "reference_answer": "Общий вопрос о содержании одной программы можно задать без индивидуальной встречи.",
+    "split": "control_new",
+    "kind": "condition"
+  },
+  {
+    "id": "B06",
+    "question": "После карьерной встречи мне обязательно найдут стажировку? Когда можно договориться о следующей встрече?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "consult-career"
+    ],
+    "reference_answer": "Консультация не гарантирует стажировку или трудоустройство. Повторную встречу можно согласовать после выполнения намеченных задач.",
+    "split": "control_new",
+    "kind": "condition"
+  },
+  {
+    "id": "B07",
+    "question": "Перед консультацией по портфолио хочу отправить полный список телефонов и адресов из резюме. Какие материалы достаточно подготовить вместо этого?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "consult-career"
+    ],
+    "reference_answer": "Можно приложить обезличенное описание двух проектов. Полное резюме, телефоны и адреса для учебной встречи не нужны.",
+    "split": "control_new",
+    "kind": "clarification"
+  },
+  {
+    "id": "B08",
+    "question": "Если я предупредил о переносе консультации заранее, какие данные надо вписать в заявку и с какого момента новое время действительно?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "consult-reschedule"
+    ],
+    "reference_answer": "Вид консультации, согласованное время и два подходящих интервала. Заявка не позднее 12 часов до встречи, новое время действует после подтверждения.",
+    "split": "control_new",
+    "kind": "condition"
+  },
+  {
+    "id": "B09",
+    "question": "Планирую личную встречу по ошибке в учебном коде. Преподаватель на ней выполнит задание за меня и оценит незаконченный итоговый проект?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "consult-tutor"
+    ],
+    "reference_answer": "На встрече помогают разобраться с причиной ошибки и следующим шагом. Преподаватель не делает задание за участника и не оценивает незавершённый итоговый проект.",
+    "split": "control_new",
+    "kind": "condition"
+  },
+  {
+    "id": "B10",
+    "question": "Какие именно секретные или персональные сведения нужно убрать из учебных файлов перед консультацией с преподавателем?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "consult-tutor"
+    ],
+    "reference_answer": "В учебных файлах не должно быть паролей, токенов или реальных персональных данных.",
+    "split": "control_new",
+    "kind": "clarification"
+  },
+  {
+    "id": "B11",
+    "question": "В сохранённом мною расписании стоит одно время, а в календаре платформы другое. Где смотреть актуальный вариант и как сообщают об изменениях?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "holiday-calendar"
+    ],
+    "reference_answer": "Ориентироваться на календарь. Об изменении или отмене сообщают через календарь и уведомления платформы.",
+    "split": "control_new",
+    "kind": "condition"
+  },
+  {
+    "id": "B12",
+    "question": "В группе тестирования на Python что делают в понедельник и что в среду? В какой часовой зоне дано время?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "testing-schedule"
+    ],
+    "reference_answer": "В понедельник разбирают тему, в среду работают с примерами и проверяют решения. Время дано по UTC+5.",
+    "split": "control_new",
+    "kind": "paraphrase"
+  },
+  {
+    "id": "B13",
+    "question": "У нашей группы тестирования последняя среда курса. Что вместо обычной практики и когда надо загрузить материалы?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "testing-schedule"
+    ],
+    "reference_answer": "Демонстрация итоговых проектов. Материалы загружают до 18:00 предыдущего дня.",
+    "split": "control_new",
+    "kind": "condition"
+  },
+  {
+    "id": "B14",
+    "question": "На аналитике субботнюю практику заменили разбором работ. Меняется ли автоматически время и где увидим замену?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "analytics-weekend"
+    ],
+    "reference_answer": "Замена заранее отражается в календаре. Время сохраняется, если календарь не указывает другое.",
+    "split": "control_new",
+    "kind": "condition"
+  },
+  {
+    "id": "B15",
+    "question": "Какую версию Python и какое рабочее окружение подготовить для начального курса? Что делать на первой практике, если установка не удалась?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "python-start"
+    ],
+    "reference_answer": "Компьютер с Python 3.12 и редактором кода. Если установка не проходит, первую практику можно выполнить в браузере.",
+    "split": "control_new",
+    "kind": "condition"
+  },
+  {
+    "id": "B16",
+    "question": "Сколько недель идут начальный курс Python и курс автоматических тестов? Нужно ли в итоговых тестах подключать реальные внешние сервисы?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "python-start",
+      "python-testing"
+    ],
+    "reference_answer": "Начальный Python длится восемь недель, тестирование шесть недель. В итоговой работе по тестированию внешние сервисы подменяются, сетевые ключи не нужны.",
+    "split": "control_new",
+    "kind": "multi_source"
+  },
+  {
+    "id": "B17",
+    "question": "Чем отличаются итоговые проекты начального Python и веб-разработки?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "python-start",
+      "web-development"
+    ],
+    "reference_answer": "Python — консольный каталог домашних расходов. Веб-разработка — каталог учебных материалов с поиском и страницей документа.",
+    "split": "control_new",
+    "kind": "multi_source"
+  },
+  {
+    "id": "B18",
+    "question": "На курсе веб-разработки обязательно сразу изучать React и серверные фреймворки? Нужен ли опыт с сервером до начала?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "web-development"
+    ],
+    "reference_answer": "Опыт с сервером не нужен. Используется простой клиентский код, React и серверные фреймворки относятся к следующим ступеням.",
+    "split": "control_new",
+    "kind": "condition"
+  },
+  {
+    "id": "B19",
+    "question": "Какие этапы программы аналитики идут до блока с графиками и сколько времени занимают?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "data-analysis"
+    ],
+    "reference_answer": "Первые три недели — очистка таблиц и сводные отчёты, следующие три — SQL, группировка и соединение таблиц.",
+    "split": "control_new",
+    "kind": "paraphrase"
+  },
+  {
+    "id": "B20",
+    "question": "Сравни длительность индивидуальной встречи с методистом по выбору программы и встречи с преподавателем по учебному вопросу.",
+    "answerable": true,
+    "expected_doc_ids": [
+      "consult-course-choice",
+      "consult-tutor"
+    ],
+    "reference_answer": "Подбор программы — 25 минут, консультация преподавателя — 20 минут.",
+    "split": "control_new",
+    "kind": "multi_source"
+  },
+  {
+    "id": "B21",
+    "question": "Какие сведения указывают, когда просят сменить поток, а какие — когда согласовывают перенос консультации?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "group-transfer",
+      "consult-reschedule"
+    ],
+    "reference_answer": "Для потока — название курса и желаемый поток, не позднее двух учебных дней и при наличии места. Для консультации — вид, согласованное время и два интервала, не позднее 12 часов, новое время после подтверждения.",
+    "split": "control_new",
+    "kind": "multi_source"
+  },
+  {
+    "id": "B22",
+    "question": "Сдал домашку и хочу уточнить конкретное замечание проверяющего. Где сначала задать вопрос и что приложить?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "homework-feedback"
+    ],
+    "reference_answer": "Сначала ответить в карточке задания, приложить небольшой обезличенный пример.",
+    "split": "control_new",
+    "kind": "clarification"
+  },
+  {
+    "id": "B23",
+    "question": "Буду менять поток, но программы потоков разные. Можно ли обещать, что уже выполненные задания автоматически зачтут?",
+    "answerable": true,
+    "expected_doc_ids": [
+      "group-transfer"
+    ],
+    "reference_answer": "Перенос выполненных заданий предусмотрен при совпадении программ. Обещать автоматический зачёт при разных программах нельзя.",
+    "split": "control_new",
+    "kind": "condition"
+  },
+  {
+    "id": "B24",
+    "question": "Как называется организация, которая выдаёт государственную аккредитацию программе «Основы веб-разработки»?",
+    "answerable": false,
+    "expected_doc_ids": [],
+    "reference_answer": "В корпусе нет сведений об аккредитации программы и выдающей её организации.",
+    "split": "control_new",
+    "kind": "missing_answer"
+  },
+  {
+    "id": "B25",
+    "question": "Сколько рублей стоит обучение аналитике по действующему валютному курсу?",
+    "answerable": false,
+    "expected_doc_ids": [],
+    "reference_answer": "Цена есть в условных единицах, но нет валютного курса или рублёвой цены.",
+    "split": "control_new",
+    "kind": "missing_answer"
+  },
+  {
+    "id": "B26",
+    "question": "Я записан в основную группу, как зовут моего персонального администратора и каков его телефон?",
+    "answerable": false,
+    "expected_doc_ids": [],
+    "reference_answer": "Персональное назначение администратора и телефон в корпусе отсутствуют.",
+    "split": "control_new",
+    "kind": "missing_answer"
+  },
+  {
+    "id": "B27",
+    "question": "Какое время занятий у вечерней группы Python и какой у неё пароль для входа на платформу?",
+    "answerable": false,
+    "expected_doc_ids": [],
+    "reference_answer": "Расписание известно, пароль в базе отсутствует. Нужен отказ по неполной информации.",
+    "split": "control_new",
+    "kind": "missing_answer"
+  },
+  {
+    "id": "B28",
+    "question": "На какие конкретные свободные дату и время завтра можно перенести мою карьерную консультацию?",
+    "answerable": false,
+    "expected_doc_ids": [],
+    "reference_answer": "Описаны общие правила переноса, но реальных свободных слотов и личной записи в базе нет.",
+    "split": "control_new",
+    "kind": "missing_answer"
+  },
+  {
+    "id": "B29",
+    "question": "Какую сумму штрафа спишут за то, что я поздно подал заявку на смену потока?",
+    "answerable": false,
+    "expected_doc_ids": [],
+    "reference_answer": "В базе нет правила о штрафе или его суммы. Нельзя приравнивать отсутствие сведений к нулевому штрафу.",
+    "split": "control_new",
+    "kind": "missing_answer"
+  },
+  {
+    "id": "B30",
+    "question": "Сколько стоит веб-разработка и сколько процентов скидки дадут при оплате сразу всей суммы?",
+    "answerable": false,
+    "expected_doc_ids": [],
+    "reference_answer": "Цена веб-разработки есть, но скидка при полной оплате не описана. Нужен отказ по неполной информации.",
+    "split": "control_new",
+    "kind": "missing_answer"
+  }
+]

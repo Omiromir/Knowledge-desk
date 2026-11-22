@@ -1,0 +1,291 @@
+.account-profile-link {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  min-inline-size: 0;
+  min-block-size: 42px;
+  padding: 4px 6px;
+  border-radius: var(--radius);
+}
+
+.account-profile-link:is(:hover, [aria-current='page']) {
+  background: var(--selected);
+  color: var(--text);
+}
+
+.account-profile-link .account-identity b {
+  display: block;
+}
+
+.account-profile-link .account-avatar {
+  display: inline-grid;
+}
+
+.account-profile-link .account-identity > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-workspace {
+  min-block-size: calc(100dvh - 2 * var(--inset) - var(--mobile-nav) - 2px);
+}
+
+.admin-shell .profile-workspace {
+  min-block-size: calc(100dvh - 82px);
+}
+
+.profile-heading,
+.profile-settings {
+  width: min(100%, 960px);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 3vw, 32px);
+}
+
+.profile-heading {
+  padding-block: clamp(28px, 5vw, 58px) 24px;
+}
+
+.profile-heading h1 {
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.profile-back {
+  margin: 0 0 12px -8px;
+}
+
+.profile-settings {
+  display: grid;
+  grid-template-columns: 158px minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+  padding-block-end: 36px;
+}
+
+.profile-navigation {
+  display: grid;
+  gap: 3px;
+  min-inline-size: 0;
+}
+
+.profile-navigation a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-block-size: 38px;
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.profile-navigation a:hover {
+  background: var(--hover);
+  color: var(--text);
+}
+
+.profile-navigation a[aria-current='page'] {
+  background: var(--selected);
+  color: var(--text);
+}
+
+.profile-content {
+  display: grid;
+  gap: 16px;
+  min-inline-size: 0;
+}
+
+.profile-identity,
+.profile-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--panel) 60%, var(--canvas));
+}
+
+.profile-cover {
+  block-size: 106px;
+  border-radius: 13px 13px 0 0;
+  background-color: #2b253e;
+  background-image:
+    linear-gradient(102deg, #2c263e 8%, rgb(44 38 62 / 0.72) 48%, rgb(43 37 62 / 0.28)),
+    url('../auth/auth-grid.webp');
+  background-position: center, right 36%;
+  background-size: cover, 555px auto;
+  background-blend-mode: normal, screen;
+}
+
+.profile-identity-body,
+.profile-password-heading,
+.profile-card-footer,
+.profile-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-identity-body {
+  align-items: end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  padding: 0 22px 20px;
+}
+
+.profile-identity-copy {
+  flex: 1 1 200px;
+  min-inline-size: 0;
+  margin-block-start: -36px;
+  overflow-wrap: anywhere;
+}
+
+.profile-identity-copy h2 {
+  margin-block-start: 8px;
+  font-size: clamp(19px, 2vw, 24px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.profile-identity-copy > .muted {
+  margin-block-start: 4px;
+}
+
+.profile-role {
+  margin-block-start: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.profile-photo-details {
+  min-inline-size: 0;
+}
+
+.profile-actions {
+  flex-wrap: wrap;
+}
+
+.profile-photo-details > p {
+  margin-block-start: 5px;
+}
+
+.profile-avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  border: 3px solid var(--panel);
+  border-radius: 50%;
+  background: #423752;
+  color: var(--text);
+  font-size: 27px;
+  font-weight: 600;
+}
+
+.profile-avatar-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-avatar-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-card {
+  padding: 20px 22px;
+}
+
+.profile-name-form {
+  padding-block-end: 0;
+}
+
+.profile-card .field {
+  min-inline-size: 0;
+  margin: 0;
+  font-weight: 500;
+}
+
+.profile-card .field input {
+  min-inline-size: 0;
+  min-block-size: 40px;
+  font-weight: 400;
+}
+
+.profile-name-form .field,
+.profile-password-form {
+  max-inline-size: 410px;
+}
+
+.profile-card-footer {
+  justify-content: space-between;
+  min-block-size: 58px;
+  margin: 16px -22px 0;
+  padding: 10px 22px;
+  border-top: 1px solid var(--line);
+}
+
+.profile-card-footer button {
+  flex: none;
+}
+
+.profile-feedback {
+  min-inline-size: 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.profile-password-heading {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.profile-password-heading h2 {
+  margin-block-end: 3px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.profile-password-form {
+  display: grid;
+  gap: 14px;
+  margin-block-start: 20px;
+}
+
+@media (max-width: 720px) {
+  .profile-heading {
+    padding-block: 24px 16px;
+  }
+
+  .profile-settings {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+    padding-block-end: 55px;
+  }
+
+  .profile-navigation {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .profile-navigation a {
+    min-block-size: 44px;
+  }
+
+  .profile-cover {
+    block-size: 84px;
+  }
+
+  .profile-workspace :is(.button, .text-button) {
+    min-block-size: 44px;
+  }
+}

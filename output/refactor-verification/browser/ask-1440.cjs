@@ -1,0 +1,127 @@
+async page => { await page.setViewportSize({ width: 1440, height: 900 }); await (async (page, capture = async () => {}) => {
+  const check = (value, message) => { if (!value) throw new Error(message) }
+  const title = 'Договор на проектирование павильона'
+  const question = 'Когда должны передать эскизный проект и что входит в комплект?'
+  const citations = [
+    { page_number: 2, text: 'Эскизный проект передаётся заказчику в течение 20 рабочих дней с даты подписания задания на проектирование.' },
+    { page_number: 3, text: 'Комплект включает план павильона, два фасада и пояснительную записку. Материалы передаются в формате PDF.' },
+  ].map((item) => ({ ...item, title, doc_id: 'fictional-contract', chunk_id: 'part-' + item.page_number }))
+  const answer = 'Срок передачи эскизного проекта — 20 рабочих дней с даты подписания задания на проектирование.\n\nВ комплект входят план павильона, два фасада и пояснительная записка. Материалы передаются в PDF.'
+  let asks = 0
+  let writes = 0
+  let outcome = 'answer'
+  let finishFirst
+  const firstResponse = new Promise((resolve) => { finishFirst = resolve })
+  let finishRetry
+  const retryResponse = new Promise((resolve) => { finishRetry = resolve })
+  await page.route('**/auth/session', (route) => route.fulfill({ json: { mode: 'local', member: null } }))
+  await page.route('**/documents', (route) => route.fulfill({ json: [title, 'Задание на проектирование', 'Регламент передачи материалов'].map((name, i) => ({
+    id: 'doc-' + i, title: name, text: 'Учебный документ', source: 'Учебный корпус',
+  })) }))
+  await page.route('**/requests', (route) => {
+    if (route.request().method() === 'POST') writes++
+    return route.fulfill({ json: [] })
+  })
+  await page.route('**/ask', async (route) => {
+    asks++
+    check(route.request().postDataJSON().question === question, 'Неверный вопрос в запросе')
+    if (asks === 1) await firstResponse
+    if (outcome === 'refusal') await retryResponse
+    if (outcome === 'error') return route.fulfill({ status: 504, json: { detail: { code: 'provider_timeout' } } })
+    return route.fulfill({ json: outcome === 'answer'
+      ? { answerable: true, answer, citations }
+      : { answerable: false, answer: 'В документах нет сведений об этом условии.', citations: [] } })
+  })
+  await page.goto(new URL('/#ask', page.url()).href)
+  await page.reload()
+  const input = page.getByRole('textbox', { name: 'Спросить по документам' })
+  await page.getByRole('button', { name: title, exact: true }).waitFor()
+  await capture('question')
+  await page.getByRole('button', { name: title, exact: true }).click()
+  check((await input.inputValue()).includes(title) && asks === 0, 'Подстановка не должна отправлять вопрос')
+  await input.fill('я'.repeat(1201))
+  check(await input.getAttribute('aria-invalid') === 'true', 'Ограничение длины')
+  await input.press('Control+Enter')
+  check(asks === 0, 'Слишком длинный запрос был отправлен')
+  await input.fill(question)
+  await input.press('Control+Enter')
+  const waiting = page.getByRole('button', { name: 'Ищем ответ…' })
+  await waiting.waitFor()
+  check(await waiting.isDisabled(), 'Отправка уже выполняется')
+  const loader = page.locator('.ask-feedback .desk-loader-page').first()
+  const animation = await loader.evaluate((part) => getComputedStyle(part).animationName)
+  check(animation === (await page.evaluate(() => matchMedia('(prefers-reduced-motion: reduce)').matches) ? 'none' : 'desk-loader-pages'), 'Настройка анимации')
+  const questionHeading = page.getByRole('heading', { name: question, exact: true })
+  const resultArea = page.locator('.ask-result-area')
+  const pendingHeading = await questionHeading.boundingBox()
+  const pendingArea = await resultArea.boundingBox()
+  await capture('answer-loading')
+  await page.keyboard.press('Control+Enter')
+  finishFirst()
+  await page.getByRole('heading', { name: 'Ответ', exact: true }).waitFor()
+  for (const [element, before] of [[questionHeading, pendingHeading], [resultArea, pendingArea]]) {
+    const after = await element.boundingBox()
+    check(Math.abs(after.y - before.y) < 1 && Math.abs(after.width - before.width) < 1, 'Ответ сдвинул область вопроса')
+  }
+  await capture('answer')
+  check(asks === 1, 'Лишний запрос при повторном нажатии')
+  const sources = page.locator('.ask-citations summary')
+  const wide = await page.evaluate(() => matchMedia('(min-width: 1100px)').matches)
+  let releasePdf
+  if (wide) {
+    const pdfResponse = new Promise((resolve) => { releasePdf = resolve })
+    await page.route(
+      (url) => url.pathname.endsWith('/original.pdf') && url.searchParams.get('page') === '2',
+      async (route) => { await pdfResponse; await route.fallback() },
+    )
+  }
+  await sources.first().focus()
+  await sources.first().press('Enter')
+  if (wide) {
+    const viewer = page.getByRole('complementary', { name: 'Оригинал PDF' })
+    await viewer.waitFor()
+    const opening = viewer.getByText('Открываем PDF…')
+    await opening.waitFor()
+    check(await viewer.locator('.desk-loader-page').count() === 3, 'PDF должен использовать общий индикатор')
+    const frame = viewer.locator('.ask-pdf-frame')
+    const before = await frame.boundingBox()
+    await capture('pdf-loading')
+    releasePdf()
+    await opening.waitFor({ state: 'hidden' })
+    const ready = await frame.boundingBox()
+    check(Math.abs(ready.y - before.y) < 1 && Math.abs(ready.height - before.height) < 1, 'Область PDF изменила размер при загрузке')
+    await sources.nth(1).click()
+    check(await viewer.locator('iframe').count() === 1, 'Должна остаться одна панель')
+    check((await viewer.locator('iframe').getAttribute('src')).includes('?page=3'), 'Неверная страница')
+    await capture('original')
+    await page.getByRole('button', { name: 'Закрыть просмотр PDF' }).click()
+    check(await sources.nth(1).evaluate((el) => el === document.activeElement), 'Фокус после закрытия')
+  } else {
+    check(await page.locator('.ask-pdf-panel').count() === 0, 'Лишняя панель на узком экране')
+    const link = page.getByRole('link', { name: 'Открыть PDF на стр. 2' })
+    check((await link.getAttribute('href')).includes('#page=2') && await link.getAttribute('target') === '_blank', 'Ссылка на оригинал')
+    await capture('excerpt')
+  }
+  await page.getByRole('button', { name: 'Изменить вопрос' }).click()
+  check(await input.inputValue() === question, 'Потерян исходный вопрос')
+  outcome = 'error'
+  await input.press('Control+Enter')
+  const failure = resultArea.getByRole('alert')
+  await failure.getByText('Модель не ответила вовремя. Попробуйте снова.').waitFor()
+  check(await questionHeading.isVisible(), 'Потерян вопрос после ошибки')
+  check(Math.abs((await resultArea.boundingBox()).y - pendingArea.y) < 1, 'Ошибка сдвинула область ответа')
+  outcome = 'refusal'
+  const retry = resultArea.getByRole('button', { name: 'Повторить', exact: true })
+  await retry.focus()
+  await retry.evaluate((button) => { button.click(); button.click() })
+  await retry.locator('.desk-loader.is-compact').waitFor()
+  check(await failure.isVisible() && await retry.isDisabled(), 'Ошибка должна оставаться видимой при повторе')
+  await retry.press('Enter')
+  check(asks === 3, 'Повторное нажатие отправило лишний запрос к модели')
+  finishRetry()
+  await page.getByRole('button', { name: 'Подготовить заявку' }).click()
+  await page.getByRole('button', { name: 'Подставить вопрос' }).click()
+  check(await page.getByLabel('Ваш вопрос', { exact: false }).inputValue() === question && writes === 0, 'Переход к черновику')
+  check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Горизонтальное переполнение')
+}
+)(page, state => page.screenshot({ path: 'D:/Personal projects and stuff/Knowledge desk/output/refactor-verification/browser/ask-1440-' + state + '.png', animations: 'disabled' })); return 'REFRACTOR_BROWSER_OK ask 1440'; }

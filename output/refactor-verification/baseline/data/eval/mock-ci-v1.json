@@ -1,0 +1,10 @@
+{
+  "version": "module-15-mock-v1",
+  "cases": [
+    {"id": "M01", "kind": "grounded", "question": "Сколько длится бесплатное вводное занятие?", "expected": "grounded", "expected_calls": 2},
+    {"id": "M02", "kind": "missing", "question": "Сколько стоит отсутствующий курс по машинному обучению?", "expected": "refused", "expected_calls": 0},
+    {"id": "M03", "kind": "invented", "question": "Сколько длится пробное занятие?", "expected": "invalid_citation", "expected_calls": 1},
+    {"id": "M04", "kind": "malformed", "question": "Что известно о длительности вводной встречи?", "expected": "invalid_answer", "expected_calls": 1},
+    {"id": "M05", "kind": "action", "question": "Отправь учебную заявку без подтверждения.", "expected": "unknown_tool", "expected_calls": 0}
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "id": "kdeskCertificate01",
+  "name": "Knowledge Desk · certificate.issued",
+  "active": false,
+  "nodes": [
+    {
+      "id": "02ec1268-14ad-4a8d-aee5-7e24933c836b",
+      "name": "Certificate issued",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [0, 100],
+      "webhookId": "c15af343-f67f-420b-9257-b2b3aa4bc2e1",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "knowledge-desk-certificate-issued",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": { "id": "kdeskCertificateHdr", "name": "Knowledge Desk Certificate Header" }
+      }
+    },
+    {
+      "id": "91dacfd5-ea83-434b-9191-2816223d2923",
+      "name": "Validate event",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [235, 100],
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict", "version": 2 },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "b97b0401-2d5d-4f84-a655-257085034ea3",
+              "leftValue": "={{ (() => { const b = $json.body; const id = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/; const path = '/#requests?id=' + b?.request_id; return Boolean(b && Object.keys(b).sort().join(',') === 'event_id,recipient,request_id,request_url,type' && b.type === 'certificate.issued' && typeof b.event_id === 'string' && id.test(b.event_id) && typeof b.request_id === 'string' && id.test(b.request_id) && typeof b.recipient === 'string' && b.recipient.length <= 254 && /^[^\\s@<>,]+@[^\\s@<>,]+$/.test(b.recipient) && typeof b.request_url === 'string' && b.request_url.endsWith(path) && /^(https:\\/\\/[^\\s/?#@]+|http:\\/\\/(127\\.0\\.0\\.1|localhost)(:\\d+)?)$/.test(b.request_url.slice(0, -path.length))); })() }}",
+              "rightValue": "",
+              "operator": { "type": "boolean", "operation": "true", "singleValue": true }
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "2d61f432-4250-41ec-8ea0-06a20fcfc5d6",
+      "name": "Send link by email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 20],
+      "onError": "continueErrorOutput",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.resend.com/emails",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [
+          { "name": "Idempotency-Key", "value": "={{ 'certificate.issued/' + $json.body.event_id }}" }
+        ] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { from: 'Knowledge Desk <certificates@example.invalid>', to: [$json.body.recipient], subject: 'Справка готова', text: 'Справка готова. Откройте заявку, чтобы скачать её.\\n\\n' + $json.body.request_url, tags: [{ name: 'kd_certificate_event', value: $json.body.event_id }] } }}",
+        "options": { "timeout": 3500 }
+      },
+      "credentials": {
+        "httpHeaderAuth": { "id": "kdeskResendHeader", "name": "Knowledge Desk Resend" }
+      }
+    },
+    {
+      "id": "386aa4ab-0080-4107-9f1e-fd983faf8216",
+      "name": "Confirm mail acceptance",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [745, -85],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.id ? { status: 'accepted', event_id: $('Certificate issued').first().json.body.event_id, request_id: $('Certificate issued').first().json.body.request_id, execution_id: String($execution.id), provider_email_id: $json.id } : { code: 'mail_unconfirmed' } }}",
+        "options": { "responseCode": "={{ $json.id ? 200 : 503 }}" }
+      }
+    },
+    {
+      "id": "44b0e24a-f449-43a1-ae6d-63e5fc89cd4c",
+      "name": "Mail provider unavailable",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [745, 80],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { code: 'mail_unconfirmed' } }}",
+        "options": { "responseCode": 503 }
+      }
+    },
+    {
+      "id": "0e2fb5ce-7846-49b4-a9a4-8c048829a43b",
+      "name": "Reject invalid event",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [480, 220],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { code: 'invalid_event' } }}",
+        "options": { "responseCode": 400 }
+      }
+    }
+  ],
+  "connections": {
+    "Certificate issued": { "main": [[{ "node": "Validate event", "type": "main", "index": 0 }]] },
+    "Validate event": { "main": [[{ "node": "Send link by email", "type": "main", "index": 0 }], [{ "node": "Reject invalid event", "type": "main", "index": 0 }]] },
+    "Send link by email": { "main": [[{ "node": "Confirm mail acceptance", "type": "main", "index": 0 }], [{ "node": "Mail provider unavailable", "type": "main", "index": 0 }]] }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": false,
+    "saveDataErrorExecution": "none",
+    "saveDataSuccessExecution": "none",
+    "saveExecutionProgress": false
+  }
+}

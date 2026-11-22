@@ -1,0 +1,498 @@
+{
+  "baseline": {
+    "trace_id": "2c90f301855a4d8ca7ed10394e24b082",
+    "http_status": 200,
+    "stages": [
+      {
+        "trace_id": "2c90f301855a4d8ca7ed10394e24b082",
+        "stage": "retrieval",
+        "started_at": "2026-11-20T19:03:27.602928+00:00",
+        "finished_at": "2026-11-20T19:03:27.709467+00:00",
+        "duration_ms": 106.35,
+        "status": "ok",
+        "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+        "index": "chroma",
+        "top_k": 5,
+        "chunk_size": 600,
+        "manifest_available": true,
+        "upload_revisions": 0,
+        "hits": 5
+      },
+      {
+        "trace_id": "2c90f301855a4d8ca7ed10394e24b082",
+        "stage": "context",
+        "started_at": "2026-11-20T19:03:27.710464+00:00",
+        "finished_at": "2026-11-20T19:03:27.710464+00:00",
+        "duration_ms": 0.24,
+        "status": "ok",
+        "hits": 5,
+        "max_distance": 0.18,
+        "selected": 5
+      },
+      {
+        "trace_id": "2c90f301855a4d8ca7ed10394e24b082",
+        "stage": "model",
+        "started_at": "2026-11-20T19:03:27.712469+00:00",
+        "finished_at": "2026-11-20T19:03:28.325853+00:00",
+        "duration_ms": 613.88,
+        "status": "ok",
+        "model": "gpt-4.1-mini",
+        "schema": "AskEvidenceDraft",
+        "input_tokens": null,
+        "output_tokens": null,
+        "cached_input_tokens": null
+      },
+      {
+        "trace_id": "2c90f301855a4d8ca7ed10394e24b082",
+        "stage": "model",
+        "started_at": "2026-11-20T19:03:28.326854+00:00",
+        "finished_at": "2026-11-20T19:03:28.328858+00:00",
+        "duration_ms": 2.29,
+        "status": "ok",
+        "model": "gpt-4.1-mini",
+        "schema": "AnswerVerification",
+        "input_tokens": null,
+        "output_tokens": null,
+        "cached_input_tokens": null
+      },
+      {
+        "trace_id": "2c90f301855a4d8ca7ed10394e24b082",
+        "stage": "grounding",
+        "started_at": "2026-11-20T19:03:27.711470+00:00",
+        "finished_at": "2026-11-20T19:03:28.328858+00:00",
+        "duration_ms": 617.76,
+        "status": "ok",
+        "version": "document-grounded-v16",
+        "policy": "cosine-explicit-year-v4",
+        "context_count": 5,
+        "citations": 1
+      },
+      {
+        "trace_id": "2c90f301855a4d8ca7ed10394e24b082",
+        "stage": "http",
+        "started_at": "2026-11-20T19:03:27.522367+00:00",
+        "finished_at": "2026-11-20T19:03:28.329858+00:00",
+        "duration_ms": 807.34,
+        "status": 200,
+        "method": "POST",
+        "route": "/ask"
+      }
+    ],
+    "answerable": true,
+    "draft_status": null,
+    "stop_code": null
+  },
+  "wrong_collection": {
+    "before": {
+      "trace_id": "8f315ccb2fdb4d1997a9e701389e6ad4",
+      "http_status": 200,
+      "stages": [
+        {
+          "trace_id": "8f315ccb2fdb4d1997a9e701389e6ad4",
+          "stage": "retrieval",
+          "started_at": "2026-11-20T19:03:28.333857+00:00",
+          "finished_at": "2026-11-20T19:03:28.377860+00:00",
+          "duration_ms": 43.61,
+          "status": "empty",
+          "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+          "index": "chroma",
+          "top_k": 5,
+          "chunk_size": 600,
+          "manifest_available": false,
+          "upload_revisions": 0,
+          "hits": 0
+        },
+        {
+          "trace_id": "8f315ccb2fdb4d1997a9e701389e6ad4",
+          "stage": "context",
+          "started_at": "2026-11-20T19:03:28.377860+00:00",
+          "finished_at": "2026-11-20T19:03:28.377860+00:00",
+          "duration_ms": 0.01,
+          "status": "ok",
+          "hits": 0,
+          "max_distance": 0.18,
+          "selected": 0
+        },
+        {
+          "trace_id": "8f315ccb2fdb4d1997a9e701389e6ad4",
+          "stage": "grounding",
+          "started_at": "2026-11-20T19:03:28.377860+00:00",
+          "finished_at": "2026-11-20T19:03:28.377860+00:00",
+          "duration_ms": 0.03,
+          "status": "refused",
+          "version": "document-grounded-v16",
+          "policy": "cosine-explicit-year-v4",
+          "context_count": 0,
+          "code": "no_context"
+        },
+        {
+          "trace_id": "8f315ccb2fdb4d1997a9e701389e6ad4",
+          "stage": "http",
+          "started_at": "2026-11-20T19:03:28.332854+00:00",
+          "finished_at": "2026-11-20T19:03:28.377860+00:00",
+          "duration_ms": 45.68,
+          "status": 200,
+          "method": "POST",
+          "route": "/ask"
+        }
+      ],
+      "answerable": false,
+      "draft_status": null,
+      "stop_code": null
+    },
+    "after": {
+      "trace_id": "9aea5b5f06be44f7941ec7db86774c82",
+      "http_status": 200,
+      "stages": [
+        {
+          "trace_id": "9aea5b5f06be44f7941ec7db86774c82",
+          "stage": "retrieval",
+          "started_at": "2026-11-20T19:03:28.393373+00:00",
+          "finished_at": "2026-11-20T19:03:28.432372+00:00",
+          "duration_ms": 39.1,
+          "status": "ok",
+          "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+          "index": "chroma",
+          "top_k": 5,
+          "chunk_size": 600,
+          "manifest_available": true,
+          "upload_revisions": 0,
+          "hits": 5
+        },
+        {
+          "trace_id": "9aea5b5f06be44f7941ec7db86774c82",
+          "stage": "context",
+          "started_at": "2026-11-20T19:03:28.433373+00:00",
+          "finished_at": "2026-11-20T19:03:28.433373+00:00",
+          "duration_ms": 0.05,
+          "status": "ok",
+          "hits": 5,
+          "max_distance": 0.18,
+          "selected": 5
+        },
+        {
+          "trace_id": "9aea5b5f06be44f7941ec7db86774c82",
+          "stage": "model",
+          "started_at": "2026-11-20T19:03:28.433373+00:00",
+          "finished_at": "2026-11-20T19:03:28.436376+00:00",
+          "duration_ms": 3.1,
+          "status": "ok",
+          "model": "gpt-4.1-mini",
+          "schema": "AskEvidenceDraft",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cached_input_tokens": null
+        },
+        {
+          "trace_id": "9aea5b5f06be44f7941ec7db86774c82",
+          "stage": "model",
+          "started_at": "2026-11-20T19:03:28.437376+00:00",
+          "finished_at": "2026-11-20T19:03:28.439372+00:00",
+          "duration_ms": 2.65,
+          "status": "ok",
+          "model": "gpt-4.1-mini",
+          "schema": "AnswerVerification",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cached_input_tokens": null
+        },
+        {
+          "trace_id": "9aea5b5f06be44f7941ec7db86774c82",
+          "stage": "grounding",
+          "started_at": "2026-11-20T19:03:28.433373+00:00",
+          "finished_at": "2026-11-20T19:03:28.439372+00:00",
+          "duration_ms": 6.44,
+          "status": "ok",
+          "version": "document-grounded-v16",
+          "policy": "cosine-explicit-year-v4",
+          "context_count": 5,
+          "citations": 1
+        },
+        {
+          "trace_id": "9aea5b5f06be44f7941ec7db86774c82",
+          "stage": "http",
+          "started_at": "2026-11-20T19:03:28.392373+00:00",
+          "finished_at": "2026-11-20T19:03:28.440372+00:00",
+          "duration_ms": 47.85,
+          "status": 200,
+          "method": "POST",
+          "route": "/ask"
+        }
+      ],
+      "answerable": true,
+      "draft_status": null,
+      "stop_code": null
+    }
+  },
+  "lost_context": {
+    "before": {
+      "trace_id": "977388457d8e4fcaa28bfa60968d3f6b",
+      "http_status": 200,
+      "stages": [
+        {
+          "trace_id": "977388457d8e4fcaa28bfa60968d3f6b",
+          "stage": "retrieval",
+          "started_at": "2026-11-20T19:03:28.445373+00:00",
+          "finished_at": "2026-11-20T19:03:28.485895+00:00",
+          "duration_ms": 40.43,
+          "status": "ok",
+          "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+          "index": "chroma",
+          "top_k": 5,
+          "chunk_size": 600,
+          "manifest_available": true,
+          "upload_revisions": 0,
+          "hits": 5
+        },
+        {
+          "trace_id": "977388457d8e4fcaa28bfa60968d3f6b",
+          "stage": "context",
+          "started_at": "2026-11-20T19:03:28.485895+00:00",
+          "finished_at": "2026-11-20T19:03:28.485895+00:00",
+          "duration_ms": 0.04,
+          "status": "ok",
+          "hits": 5,
+          "max_distance": 0.18,
+          "selected": 5
+        },
+        {
+          "trace_id": "977388457d8e4fcaa28bfa60968d3f6b",
+          "stage": "grounding",
+          "started_at": "2026-11-20T19:03:28.485895+00:00",
+          "finished_at": "2026-11-20T19:03:28.485895+00:00",
+          "duration_ms": 0.03,
+          "status": "refused",
+          "version": "document-grounded-v16",
+          "policy": "cosine-explicit-year-v4",
+          "context_count": 0,
+          "code": "no_context"
+        },
+        {
+          "trace_id": "977388457d8e4fcaa28bfa60968d3f6b",
+          "stage": "http",
+          "started_at": "2026-11-20T19:03:28.443374+00:00",
+          "finished_at": "2026-11-20T19:03:28.486895+00:00",
+          "duration_ms": 42.8,
+          "status": 200,
+          "method": "POST",
+          "route": "/ask"
+        }
+      ],
+      "answerable": false,
+      "draft_status": null,
+      "stop_code": null
+    },
+    "after": {
+      "trace_id": "cbb810ec298b4685af37840200a26f24",
+      "http_status": 200,
+      "stages": [
+        {
+          "trace_id": "cbb810ec298b4685af37840200a26f24",
+          "stage": "retrieval",
+          "started_at": "2026-11-20T19:03:28.490895+00:00",
+          "finished_at": "2026-11-20T19:03:28.530895+00:00",
+          "duration_ms": 40.14,
+          "status": "ok",
+          "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+          "index": "chroma",
+          "top_k": 5,
+          "chunk_size": 600,
+          "manifest_available": true,
+          "upload_revisions": 0,
+          "hits": 5
+        },
+        {
+          "trace_id": "cbb810ec298b4685af37840200a26f24",
+          "stage": "context",
+          "started_at": "2026-11-20T19:03:28.531899+00:00",
+          "finished_at": "2026-11-20T19:03:28.531899+00:00",
+          "duration_ms": 0.05,
+          "status": "ok",
+          "hits": 5,
+          "max_distance": 0.18,
+          "selected": 5
+        },
+        {
+          "trace_id": "cbb810ec298b4685af37840200a26f24",
+          "stage": "model",
+          "started_at": "2026-11-20T19:03:28.531899+00:00",
+          "finished_at": "2026-11-20T19:03:28.534905+00:00",
+          "duration_ms": 2.74,
+          "status": "ok",
+          "model": "gpt-4.1-mini",
+          "schema": "AskEvidenceDraft",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cached_input_tokens": null
+        },
+        {
+          "trace_id": "cbb810ec298b4685af37840200a26f24",
+          "stage": "model",
+          "started_at": "2026-11-20T19:03:28.534905+00:00",
+          "finished_at": "2026-11-20T19:03:28.536924+00:00",
+          "duration_ms": 1.85,
+          "status": "ok",
+          "model": "gpt-4.1-mini",
+          "schema": "AnswerVerification",
+          "input_tokens": null,
+          "output_tokens": null,
+          "cached_input_tokens": null
+        },
+        {
+          "trace_id": "cbb810ec298b4685af37840200a26f24",
+          "stage": "grounding",
+          "started_at": "2026-11-20T19:03:28.531899+00:00",
+          "finished_at": "2026-11-20T19:03:28.536924+00:00",
+          "duration_ms": 5.15,
+          "status": "ok",
+          "version": "document-grounded-v16",
+          "policy": "cosine-explicit-year-v4",
+          "context_count": 5,
+          "citations": 1
+        },
+        {
+          "trace_id": "cbb810ec298b4685af37840200a26f24",
+          "stage": "http",
+          "started_at": "2026-11-20T19:03:28.489894+00:00",
+          "finished_at": "2026-11-20T19:03:28.536924+00:00",
+          "duration_ms": 47.42,
+          "status": 200,
+          "method": "POST",
+          "route": "/ask"
+        }
+      ],
+      "answerable": true,
+      "draft_status": null,
+      "stop_code": null
+    }
+  },
+  "tool_timeout": {
+    "before": {
+      "trace_id": "4fbe8763f47c4643b4357e633b30118a",
+      "http_status": 200,
+      "stages": [
+        {
+          "trace_id": "4fbe8763f47c4643b4357e633b30118a",
+          "stage": "tool_arguments",
+          "started_at": "2026-11-20T19:03:28.590421+00:00",
+          "finished_at": "2026-11-20T19:03:28.590421+00:00",
+          "duration_ms": 0.04,
+          "status": "ok",
+          "tool": "search_documents",
+          "contract": "v1"
+        },
+        {
+          "trace_id": "4fbe8763f47c4643b4357e633b30118a",
+          "stage": "tool",
+          "started_at": "2026-11-20T19:03:28.590421+00:00",
+          "finished_at": "2026-11-20T19:03:31.591933+00:00",
+          "duration_ms": 3001.59,
+          "status": "tool_timeout",
+          "tool": "search_documents",
+          "attempt": 1,
+          "contract": "v1"
+        },
+        {
+          "trace_id": "4fbe8763f47c4643b4357e633b30118a",
+          "stage": "http",
+          "started_at": "2026-11-20T19:03:28.555897+00:00",
+          "finished_at": "2026-11-20T19:03:31.607203+00:00",
+          "duration_ms": 3051.66,
+          "status": 200,
+          "method": "POST",
+          "route": "/consultations/{draft_id}/prepare"
+        }
+      ],
+      "answerable": null,
+      "draft_status": "failed",
+      "stop_code": "tool_timeout"
+    },
+    "after": {
+      "trace_id": "7f3b39304e054c63a12d06f7d0b00c48",
+      "http_status": 200,
+      "stages": [
+        {
+          "trace_id": "7f3b39304e054c63a12d06f7d0b00c48",
+          "stage": "tool_arguments",
+          "started_at": "2026-11-20T19:03:31.642199+00:00",
+          "finished_at": "2026-11-20T19:03:31.642199+00:00",
+          "duration_ms": 0.03,
+          "status": "ok",
+          "tool": "search_documents",
+          "contract": "v1"
+        },
+        {
+          "trace_id": "7f3b39304e054c63a12d06f7d0b00c48",
+          "stage": "retrieval",
+          "started_at": "2026-11-20T19:03:31.642199+00:00",
+          "finished_at": "2026-11-20T19:03:31.679211+00:00",
+          "duration_ms": 36.42,
+          "status": "ok",
+          "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+          "index": "chroma",
+          "top_k": 5,
+          "chunk_size": 600,
+          "manifest_available": true,
+          "upload_revisions": 0,
+          "hits": 5
+        },
+        {
+          "trace_id": "7f3b39304e054c63a12d06f7d0b00c48",
+          "stage": "context",
+          "started_at": "2026-11-20T19:03:31.679211+00:00",
+          "finished_at": "2026-11-20T19:03:31.679211+00:00",
+          "duration_ms": 0.04,
+          "status": "ok",
+          "hits": 5,
+          "max_distance": 0.18,
+          "selected": 5
+        },
+        {
+          "trace_id": "7f3b39304e054c63a12d06f7d0b00c48",
+          "stage": "tool",
+          "started_at": "2026-11-20T19:03:31.642199+00:00",
+          "finished_at": "2026-11-20T19:03:31.679211+00:00",
+          "duration_ms": 36.99,
+          "status": "success",
+          "tool": "search_documents",
+          "attempt": 1,
+          "contract": "v1"
+        },
+        {
+          "trace_id": "7f3b39304e054c63a12d06f7d0b00c48",
+          "stage": "tool_arguments",
+          "started_at": "2026-11-20T19:03:31.684208+00:00",
+          "finished_at": "2026-11-20T19:03:31.684208+00:00",
+          "duration_ms": 0.03,
+          "status": "ok",
+          "tool": "prepare_request",
+          "contract": "v1"
+        },
+        {
+          "trace_id": "7f3b39304e054c63a12d06f7d0b00c48",
+          "stage": "tool",
+          "started_at": "2026-11-20T19:03:31.684208+00:00",
+          "finished_at": "2026-11-20T19:03:31.685211+00:00",
+          "duration_ms": 0.08,
+          "status": "success",
+          "tool": "prepare_request",
+          "attempt": 1,
+          "contract": "v1"
+        },
+        {
+          "trace_id": "7f3b39304e054c63a12d06f7d0b00c48",
+          "stage": "http",
+          "started_at": "2026-11-20T19:03:31.621202+00:00",
+          "finished_at": "2026-11-20T19:03:31.705728+00:00",
+          "duration_ms": 84.83,
+          "status": 200,
+          "method": "POST",
+          "route": "/consultations/{draft_id}/prepare"
+        }
+      ],
+      "answerable": null,
+      "draft_status": "awaiting_confirmation",
+      "stop_code": null
+    }
+  }
+}
