@@ -8,9 +8,8 @@ __pycache__/
 *.sqlite3-*
 .playwright/
 .playwright-cli/
-output/playwright/
-output/supabase-check/
-output/ci/
+/output/
+/supabase/.temp/
 data/chroma/
 *.chroma/
 data/.model-cache/
